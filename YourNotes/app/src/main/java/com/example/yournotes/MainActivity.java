@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
 
                     if (email.getText().toString().equals(rEmail) && password.getText().toString().equals(rPassword)) {
                         Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this, Home.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
                     }
