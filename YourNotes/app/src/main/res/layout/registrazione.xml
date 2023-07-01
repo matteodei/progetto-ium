@@ -7,7 +7,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#F3F3F3"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5pt"
+            android:layout_marginTop="5pt"
+            android:text="indietro"
+            android:textSize="17dp"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="45pt"
             android:background="@color/white"
-            android:hint=""
+            android:hint="nome utente"
             android:textSize="20dp" />
 
         <TextView
@@ -42,7 +53,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="90pt"
-            android:hint=""
+            android:hint="email"
             android:textSize="20dp"
             android:background="@color/white"
             android:layout_centerHorizontal="true"
@@ -62,7 +73,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="135pt"
-            android:hint=""
+            android:hint="password"
             android:textSize="20dp"
             android:background="@color/white"
             android:layout_centerHorizontal="true"
@@ -82,7 +93,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="180pt"
-            android:hint=""
+            android:hint="conferma password"
             android:textSize="20dp"
             android:background="@color/white"
             android:layout_centerHorizontal="true"
@@ -102,7 +113,7 @@
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="225pt"
-            android:hint=""
+            android:hint="corso di laurea"
             android:textSize="20dp"
             android:background="@color/white"
             android:layout_centerHorizontal="true"
