@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="#F3F3F3"
+        >
+
+        <TextView
+            android:layout_width="413dp"
+            android:layout_height="110dp"
+            android:background="#2196F3"
+            android:gravity="center"
+            android:text="YourNotes"
+            android:textColor="#FFFEFE"
+            android:textSize="48sp" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:srcCompat="@drawable/logo2"
+            tools:layout_editor_absoluteX="138dp"
+            tools:layout_editor_absoluteY="155dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13pt"
+            android:layout_marginTop="10pt"
+            android:text="Login"
+            android:textSize="30dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13pt"
+            android:layout_marginTop="5pt"
+            android:text="Email:"
+            android:textSize="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editEmail"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="13pt"
+            android:hint="inserisci email"
+            android:textSize="20dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13pt"
+            android:layout_marginTop="5pt"
+            android:text="Password:"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="13pt"
+            android:hint="inserisci password"
+            android:textSize="20dp"
+            android:background="@color/white"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="230dp"
+                android:layout_height="48dp"
+                android:text="Accedi"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12pt"
+                android:backgroundTint="#2196F3"
+
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginHorizontal="5pt"
+                android:layout_marginVertical="40pt"
+                android:text="Crea account"
+                android:textColor="#2196F3"
+                android:textSize="18dp" />
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
