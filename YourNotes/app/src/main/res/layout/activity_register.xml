@@ -35,7 +35,7 @@
             />
 
         <EditText
-            android:id="@+id/editName"
+            android:id="@+id/editNameRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_centerHorizontal="true"
@@ -54,7 +54,7 @@
             />
 
         <EditText
-            android:id="@+id/editEmail"
+            android:id="@+id/editEmailRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="90pt"
@@ -74,7 +74,7 @@
             />
 
         <EditText
-            android:id="@+id/editPassword"
+            android:id="@+id/editPasswordRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="135pt"
@@ -94,7 +94,7 @@
             />
 
         <EditText
-            android:id="@+id/editConfirmPassword"
+            android:id="@+id/editConfirmPasswordRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="180pt"
@@ -114,7 +114,7 @@
             />
 
         <EditText
-            android:id="@+id/editCdL"
+            android:id="@+id/editCdLRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="225pt"
