@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 try {
                     Bundle bundle = getIntent().getExtras();
                     String rEmail = bundle.getString("email");
