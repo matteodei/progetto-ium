@@ -46,30 +46,61 @@ public class Register extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Ottenere i valori dai campi di input
+                String username = rUsername.getText().toString().trim();
+                String email = rEmail.getText().toString().trim();
+                String corsoLaurea = rCorsoLaurea.getText().toString().trim();
+                String password = rPassword.getText().toString().trim();
+                String confirmPassword = rConfirmPassword.getText().toString().trim();
 
+                // Validazione dei campi
+                if (username.isEmpty()) {
+                    rUsername.setError("Il campo username è obbligatorio");
+                    rUsername.requestFocus();
+                    return;
+                }
+
+                if (email.isEmpty()) {
+                    rEmail.setError("Il campo email è obbligatorio");
+                    rEmail.requestFocus();
+                    return;
+                }
+
+                if (corsoLaurea.isEmpty()) {
+                    rCorsoLaurea.setError("Il campo corso di laurea è obbligatorio");
+                    rCorsoLaurea.requestFocus();
+                    return;
+                }
+
+                if (password.isEmpty()) {
+                    rPassword.setError("Il campo password è obbligatorio");
+                    rPassword.requestFocus();
+                    return;
+                }
+
+                if (confirmPassword.isEmpty()) {
+                    rConfirmPassword.setError("Il campo conferma password è obbligatorio");
+                    rConfirmPassword.requestFocus();
+                    return;
+                }
+
+                if (!password.equals(confirmPassword)) {
+                    rConfirmPassword.setError("Le password non combaciano");
+                    rConfirmPassword.requestFocus();
+                    return;
+                }
+
+                // Se tutti i controlli passano, puoi procedere con l'azione successiva, ad esempio il salvataggio dei dati o l'invio di una richiesta.
                 Intent i = new Intent(Register.this, MainActivity.class);
 
-                final String username = rUsername.getText().toString().trim();
-                final String email = rEmail.getText().toString().trim();
-                final String password = rPassword.getText().toString().trim();
-                final String confirmPassword = rConfirmPassword.getText().toString().trim();
-                final String CorsoLaure = rCorsoLaurea.getText().toString().trim();
-
+                Bundle bundle = new Bundle();
                 bundle.putString("email", email);
                 bundle.putString("password", password);
-
                 i.putExtras(bundle);
 
                 startActivity(i);
-
             }
         });
-
-
-
-
-
-
 
 
     }
