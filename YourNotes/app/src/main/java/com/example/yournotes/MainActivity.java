@@ -38,16 +38,21 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                try {
+                    Bundle bundle = getIntent().getExtras();
+                    String rEmail = bundle.getString("email");
+                    String rPassword = bundle.getString("password");
 
-                Bundle bundle = getIntent().getExtras();
-                String rEmail = bundle.getString("email");
-                String rPassword = bundle.getString("password");
-
-                if (email.getText().toString().equals(rEmail) && password.getText().toString().equals(rPassword)) {
-                    Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+                    if (email.getText().toString().equals(rEmail) && password.getText().toString().equals(rPassword)) {
+                        Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Login Failed!", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                catch(Exception e) {
+                    Toast.makeText(MainActivity.this, "Nessun Utente, registrati", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
