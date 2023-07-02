@@ -3,13 +3,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4CAF50"
     tools:context=".AggiungiFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="#F3F3F3"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15pt"
+            android:layout_marginTop="30pt"
+            android:text="Corso di laurea:"
+            android:textSize="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editNameRegister"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45pt"
+            android:background="@color/white"
+            android:hint="CdL"
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15pt"
+            android:layout_marginTop="75pt"
+            android:text="Materia:"
+            android:textSize="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editEmailRegister"
+            android:layout_width="340dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="90pt"
+            android:hint="materia"
+            android:textSize="20dp"
+            android:background="@color/white"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15pt"
+            android:layout_marginTop="120pt"
+            android:text="Descrizione/Argomenti:"
+            android:textSize="20dp"
+            />
+
+        <EditText
+            android:id="@+id/editPasswordRegister"
+            android:layout_width="340dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="135pt"
+            android:hint="descrizione/argomenti"
+            android:textSize="20dp"
+            android:background="@color/white"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:id="@+id/confirmAccountButton"
+            android:layout_width="230dp"
+            android:layout_height="48dp"
+            android:text="Carica"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="235pt"
+            android:backgroundTint="#2196F3"
+
+            />
+
+
+
+
+
+
+
+
+    </RelativeLayout>
 
 </FrameLayout>
