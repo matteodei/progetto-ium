@@ -30,7 +30,7 @@ public class Register extends AppCompatActivity {
         rEmail = findViewById(R.id.editEmailRegister);
         rPassword = findViewById(R.id.editPasswordRegister);
         rConfirmPassword = findViewById(R.id.editConfirmPasswordRegister);
-        rCorsoLaurea = findViewById(R.id.editCdLRegister);
+        rCorsoLaurea = findViewById(R.id.uploadFile);
 
         button = (Button) findViewById(R.id.backButton1);
         confirmButton = (Button) findViewById(R.id.confirmAccountButton);
