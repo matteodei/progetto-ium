@@ -114,7 +114,7 @@
             />
 
         <EditText
-            android:id="@+id/uploadFile"
+            android:id="@+id/editCdLRegister"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="225pt"
