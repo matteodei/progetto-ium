@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 import android.widget.EditText;
+import java.io.FileWriter;  // Import the File class
+import java.io.IOException;  // Import the IOException class to handle errors
 
 
 import com.example.yournotes.databinding.ActivityHomeBinding;
@@ -22,6 +24,13 @@ import com.example.yournotes.databinding.ActivityMainBinding;
 public class Home extends AppCompatActivity {
 
     ActivityHomeBinding binding;
+
+
+    public Button confirmButtonUpload;
+
+    public EditText uCdl;
+    public EditText uMateria;
+    public EditText uDescrizione;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,31 @@ public class Home extends AppCompatActivity {
             }
             return true;
         });
+
+        uCdl = findViewById(R.id.getCdl);
+        uMateria = findViewById(R.id.getMateria);
+        uDescrizione = findViewById(R.id.getDescrizione);
+
+        confirmButtonUpload = (Button)  findViewById(R.id.confirmAccountButton);
+/*
+        String cdl = uCdl.getText().toString().trim();
+        String materia = uMateria.getText().toString().trim();
+        String descrizione = uDescrizione.getText().toString().trim();
+
+
+
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            myWriter.write(cdl+";"+materia+";"+descrizione);
+            myWriter.close();
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+         */
+
 
 
     }

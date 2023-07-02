@@ -22,7 +22,7 @@
             />
 
         <EditText
-            android:id="@+id/editNameRegister"
+            android:id="@+id/getCdl"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_centerHorizontal="true"
@@ -41,7 +41,7 @@
             />
 
         <EditText
-            android:id="@+id/editEmailRegister"
+            android:id="@+id/getMateria"
             android:layout_width="340dp"
             android:layout_height="48dp"
             android:layout_marginTop="90pt"
@@ -61,7 +61,7 @@
             />
 
         <EditText
-            android:id="@+id/editPasswordRegister"
+            android:id="@+id/getDescrizione"
             android:layout_width="340dp"
             android:layout_height="200dp"
             android:layout_marginTop="135pt"
