@@ -24,11 +24,12 @@
            />
 
        <TextView
+           android:id="@+id/provaEmail"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            android:layout_marginLeft="55pt"
            android:layout_marginTop="15pt"
-           android:text="Nome utente"
+           android:text=""
            android:textSize="30dp"
            />
 
@@ -39,17 +40,6 @@
            android:layout_marginTop="30pt"
            android:text="Corso"
            android:textSize="20dp"
-           />
-
-       <ImageButton
-           android:id="@+id/settingsButton"
-           android:layout_width="10pt"
-           android:layout_height="10pt"
-           android:src="@drawable/baseline_settings_24"
-           android:layout_marginLeft="145pt"
-           android:layout_marginTop="25pt"
-
-
            />
 
        <androidx.appcompat.widget.AppCompatButton
