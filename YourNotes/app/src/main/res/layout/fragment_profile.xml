@@ -3,13 +3,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CDDC39"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F3F3F3"
     tools:context=".ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+
+       <ImageView
+           android:id="@+id/logo"
+           android:layout_width="100dp"
+           android:layout_height="100dp"
+           app:srcCompat="@drawable/baseline_person_pin_24"
+           tools:layout_editor_absoluteX="138dp"
+           tools:layout_editor_absoluteY="155dp"
+           android:layout_marginTop="10pt"
+           android:layout_marginLeft="10pt"
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="55pt"
+           android:layout_marginTop="15pt"
+           android:text="Nome utente"
+           android:textSize="30dp"
+           />
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginLeft="55pt"
+           android:layout_marginTop="30pt"
+           android:text="Corso"
+           android:textSize="20dp"
+           />
+
+       <ImageButton
+           android:id="@+id/settingsButton"
+           android:layout_width="10pt"
+           android:layout_height="10pt"
+           android:src="@drawable/baseline_settings_24"
+           android:layout_marginLeft="145pt"
+           android:layout_marginTop="25pt"
+
+
+           />
+
+
+
+
+   </RelativeLayout>
+
+
 
 </FrameLayout>
