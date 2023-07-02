@@ -52,7 +52,41 @@
 
            />
 
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/buttonCorsiSeguiti"
+           android:layout_width="130pt"
+           android:layout_height="48pt"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="70pt"
+           android:background="@drawable/mybutton"
+           android:backgroundTint="#00BCD4"
+           android:padding="10dp"
+           android:text="Corsi seguiti"
+           android:textColor="#ffffff" />
 
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/buttonPreferiti"
+           android:layout_width="130pt"
+           android:layout_height="48pt"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="130pt"
+           android:background="@drawable/mybutton"
+           android:backgroundTint="#03A9F4"
+           android:padding="10dp"
+           android:text="Preferiti"
+           android:textColor="#ffffff" />
+
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/buttonAppunti"
+           android:layout_width="130pt"
+           android:layout_height="48pt"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="190pt"
+           android:background="@drawable/mybutton"
+           android:backgroundTint="#2196F3"
+           android:padding="10dp"
+           android:text="I tuoi file"
+           android:textColor="#ffffff" />
 
 
    </RelativeLayout>
