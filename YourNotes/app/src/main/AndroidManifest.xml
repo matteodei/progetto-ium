@@ -13,6 +13,9 @@
         android:theme="@style/Theme.YourNotes"
         tools:targetApi="31">
         <activity
+            android:name=".YourFiles"
+            android:exported="false" />
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity

@@ -1,39 +1,60 @@
 package com.example.yournotes;
-
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.widget.Button;
-import android.content.Intent;
-import android.view.View;
-import android.widget.EditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class Register extends AppCompatActivity {
 
+    private EditText editTextUsername, editTextPassword, editEmail, editCorsoLaurea, editConfirmPassword;
+    private SharedPreferences sharedPreferences;
+
     public Button button;
-    public Button confirmButton;
-
-    public EditText rUsername;
-    public EditText rEmail;
-    public EditText rPassword;
-    public EditText rConfirmPassword;
-    public EditText rCorsoLaurea;
-
-    Bundle bundle = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        rUsername = findViewById(R.id.editNameRegister);
-        rEmail = findViewById(R.id.editEmailRegister);
-        rPassword = findViewById(R.id.editPasswordRegister);
-        rConfirmPassword = findViewById(R.id.editConfirmPasswordRegister);
-        rCorsoLaurea = findViewById(R.id.editCdLRegister);
-
         button = (Button) findViewById(R.id.backButton1);
-        confirmButton = (Button) findViewById(R.id.confirmAccountButton);
+
+        // Ottieni un riferimento alle SharedPreferences
+        sharedPreferences = getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
+
+        editTextUsername = findViewById(R.id.registerUsername);
+        editTextPassword = findViewById(R.id.registerPassword);
+        Button buttonRegister = findViewById(R.id.buttonRegister);
+
+        editEmail = findViewById(R.id.registerEmail);
+        editCorsoLaurea = findViewById(R.id.registerCorsoDiLaurea);
+        editConfirmPassword = findViewById(R.id.registerConfirmPassword);
+
+        TextInputLayout usernameLayout = findViewById(R.id.usernameLayout);
+        TextInputLayout emailLayout = findViewById(R.id.emailLayout);
+        TextInputLayout passwordLayout = findViewById(R.id.passwordLayout);
+        TextInputLayout confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
+        TextInputLayout corsoLaureaLayout = findViewById(R.id.corsoLaureaLayout);
+
+        buttonRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editTextUsername.clearFocus();
+                editEmail.clearFocus();
+                editTextPassword.clearFocus();
+                editConfirmPassword.clearFocus();
+                editCorsoLaurea.clearFocus();
+                register();
+            }
+        });
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,65 +64,163 @@ public class Register extends AppCompatActivity {
             }
         });
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
+        editTextUsername.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                // Ottenere i valori dai campi di input
-                String username = rUsername.getText().toString().trim();
-                String email = rEmail.getText().toString().trim();
-                String corsoLaurea = rCorsoLaurea.getText().toString().trim();
-                String password = rPassword.getText().toString().trim();
-                String confirmPassword = rConfirmPassword.getText().toString().trim();
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    usernameLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
 
-                // Validazione dei campi
-                if (username.isEmpty()) {
-                    rUsername.setError("Il campo username è obbligatorio");
-                    rUsername.requestFocus();
-                    return;
+        editEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                emailLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editCorsoLaurea.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                corsoLaureaLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                passwordLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editConfirmPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                confirmPasswordLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // Azioni da eseguire quando l'EditText ottiene il focus (viene cliccato)
+                    passwordLayout.setError(null);
+                } else {
+                    // Azioni da eseguire quando l'EditText perde il focus
                 }
-
-                if (email.isEmpty()) {
-                    rEmail.setError("Il campo email è obbligatorio");
-                    rEmail.requestFocus();
-                    return;
-                }
-
-                if (corsoLaurea.isEmpty()) {
-                    rCorsoLaurea.setError("Il campo corso di laurea è obbligatorio");
-                    rCorsoLaurea.requestFocus();
-                    return;
-                }
-
-                if (password.isEmpty()) {
-                    rPassword.setError("Il campo password è obbligatorio");
-                    rPassword.requestFocus();
-                    return;
-                }
-
-                if (confirmPassword.isEmpty()) {
-                    rConfirmPassword.setError("Il campo conferma password è obbligatorio");
-                    rConfirmPassword.requestFocus();
-                    return;
-                }
-
-                if (!password.equals(confirmPassword)) {
-                    rConfirmPassword.setError("Le password non combaciano");
-                    rConfirmPassword.requestFocus();
-                    return;
-                }
-
-                // Se tutti i controlli passano, puoi procedere con l'azione successiva, ad esempio il salvataggio dei dati o l'invio di una richiesta.
-                Intent i = new Intent(Register.this, MainActivity.class);
-
-                Bundle bundle = new Bundle();
-                bundle.putString("email", email);
-                bundle.putString("password", password);
-                i.putExtras(bundle);
-
-                startActivity(i);
             }
         });
 
+        editConfirmPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    // Azioni da eseguire quando l'EditText ottiene il focus (viene cliccato)
+                    confirmPasswordLayout.setError(null);
+                } else {
+                    // Azioni da eseguire quando l'EditText perde il focus
+                }
+            }
+        });
+    }
 
+    private void register() {
+        String username = editTextUsername.getText().toString().trim();
+        String password = editTextPassword.getText().toString().trim();
+        String email = editEmail.getText().toString().trim();
+        String confirmPassword = editConfirmPassword.getText().toString().trim();
+        String corsoLaurea = editCorsoLaurea.getText().toString().trim();
+
+        TextInputLayout usernameLayout = findViewById(R.id.usernameLayout);
+        TextInputLayout emailLayout = findViewById(R.id.emailLayout);
+        TextInputLayout passwordLayout = findViewById(R.id.passwordLayout);
+        TextInputLayout confirmPasswordLayout = findViewById(R.id.confirmPasswordLayout);
+        TextInputLayout corsoLaureaLayout = findViewById(R.id.corsoLaureaLayout);
+
+        int controlloErrori = 0;
+
+        // Verifica che il nome utente non sia vuoto o troppo lungo
+        if (username.isEmpty()) {
+            usernameLayout.setError("*Campo necessario");
+        }else if(username.length() > 20){
+            usernameLayout.setError("*Nome troppo lungo");
+        }else{
+            controlloErrori++;
+        }
+
+        if (password.isEmpty()) {
+            passwordLayout.setError("*Campo necessario");
+        }else if(password.length() > 20){
+            passwordLayout.setError("*Password troppo lunga");
+        }else{
+            controlloErrori++;
+        }
+
+        if (email.isEmpty()) {
+            emailLayout.setError("*Campo necessario");
+        }else if(email.length() > 20){
+            emailLayout.setError("*Email troppo lunga");
+        }else{
+            controlloErrori++;
+        }
+
+        if (confirmPassword.isEmpty()) {
+            confirmPasswordLayout.setError("*Campo necessario");
+        }else if(confirmPassword.length() > 20){
+            confirmPasswordLayout.setError("*Password troppo lunga");
+        }else if(!(confirmPassword.equals(password))){
+            confirmPasswordLayout.setError(("*Le password non conincidono"));
+            passwordLayout.setError(("*Le password non conincidono"));
+        }else{
+            controlloErrori++;
+        }
+
+        if (corsoLaurea.isEmpty()) {
+            corsoLaureaLayout.setError("*Campo necessario");
+        }else if(corsoLaurea.length() > 20){
+            corsoLaureaLayout.setError("*Nome troppo lungo");
+        }else{
+            controlloErrori++;
+        }
+
+        if(controlloErrori == 5) {
+            // Verifica se l'utente esiste già (simulato hardcoded, da sostituire con una logica reale)
+            if (isUserRegistered(username)) {
+                Toast.makeText(this, "L'utente esiste già", Toast.LENGTH_SHORT).show();
+            } else {
+                // Registra il nuovo utente (simulato hardcoded, da sostituire con una logica reale)
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(username, password);
+                editor.apply();
+
+                Toast.makeText(this, "Registrazione effettuata", Toast.LENGTH_SHORT).show();
+                finish(); // Chiudi l'Activity di registrazione dopo il successo
+            }
+        }
+    }
+
+    // Metodo per verificare se l'utente è già registrato
+    private boolean isUserRegistered(String username) {
+        return sharedPreferences.contains(username);
     }
 }
