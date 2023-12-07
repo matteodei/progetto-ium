@@ -20,8 +20,8 @@
 
         <TextView
             android:layout_width="413dp"
-            android:layout_height="110dp"
-            android:background="#2196F3"
+            android:layout_height="122dp"
+            android:background="@drawable/mygradient"
             android:gravity="center"
             android:text="YourNotes"
             android:textColor="#FFFEFE"
@@ -37,77 +37,87 @@
             android:layout_gravity="center"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="13pt"
             android:layout_marginTop="10pt"
+            android:layout_marginBottom="10pt"
+            android:gravity="center"
             android:text="Login"
-            android:textSize="30dp"
-            />
+            android:textSize="30dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="13pt"
-            android:layout_marginTop="5pt"
-            android:text="Email:"
-            android:textSize="20dp"
-            />
+            android:hint="Nome Utente"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_username"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:errorEnabled="true"
+            android:id="@+id/editUsernameLayout">  <!-- DA IMPLEMENTARE -->
 
-        <EditText
-            android:id="@+id/editEmailLogin"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="13pt"
-            android:hint="inserisci email"
-            android:textSize="20dp"
-            android:background="@color/white"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/editEmailLogin"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="13pt"
-            android:layout_marginTop="5pt"
-            android:text="Password:"
-            android:textSize="20dp" />
+            android:hint="Password"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_password"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="password_toggle"
+            android:layout_marginTop="15dp"
+            android:id="@+id/editPasswordLayout">
 
-        <EditText
-            android:id="@+id/editPasswordLogin"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginHorizontal="13pt"
-            android:hint="inserisci password"
-            android:textSize="20dp"
-            android:background="@color/white"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/editPasswordLogin"
+                android:inputType="textPassword"
+
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/accessButton"
                 android:layout_width="230dp"
                 android:layout_height="48dp"
                 android:text="Accedi"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="12pt"
-                android:backgroundTint="#2196F3"
-
+                android:layout_marginTop="15pt"
+                android:background="@drawable/mygradient"
+                android:textColor="@color/white"
                 />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/createAccountButton"
                 android:layout_width="230dp"
                 android:layout_height="48dp"
-                android:text="Crea account"
+                android:text="Registrati"
                 android:layout_centerHorizontal="true"
-                android:layout_marginHorizontal="5pt"
-                android:layout_marginVertical="40pt"
-                android:backgroundTint="#F3F3F3"
-                android:textColor="#2196F3"
-
+                android:layout_marginTop="43pt"
+                android:background="#F3F3F3"
+                android:textColor="#588CF3"
+                style="?android:attr/borderlessButtonStyle"
+                android:textAllCaps="false"
                 />
 
         </RelativeLayout>
