@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
+import android.util.Patterns;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -151,6 +152,8 @@ public class Register extends AppCompatActivity {
         String confirmPassword = editConfirmPassword.getText().toString().trim();
         String corsoLaurea = editCorsoLaurea.getText().toString().trim();
 
+        String datiUtente = password + "£" + email + "£" + corsoLaurea;
+
         TextInputLayout usernameLayout = findViewById(R.id.usernameLayout);
         TextInputLayout emailLayout = findViewById(R.id.emailLayout);
         TextInputLayout passwordLayout = findViewById(R.id.passwordLayout);
@@ -164,6 +167,8 @@ public class Register extends AppCompatActivity {
             usernameLayout.setError("*Campo necessario");
         }else if(username.length() > 20){
             usernameLayout.setError("*Nome troppo lungo");
+        }else if(isUserRegistered(username)){
+            usernameLayout.setError("*Nome utente già in uso");
         }else{
             controlloErrori++;
         }
@@ -180,6 +185,8 @@ public class Register extends AppCompatActivity {
             emailLayout.setError("*Campo necessario");
         }else if(email.length() > 20){
             emailLayout.setError("*Email troppo lunga");
+        }else if(!isValidEmail(email)){
+            emailLayout.setError("*Formato email non valido");
         }else{
             controlloErrori++;
         }
@@ -205,22 +212,25 @@ public class Register extends AppCompatActivity {
 
         if(controlloErrori == 5) {
             // Verifica se l'utente esiste già (simulato hardcoded, da sostituire con una logica reale)
-            if (isUserRegistered(username)) {
-                Toast.makeText(this, "L'utente esiste già", Toast.LENGTH_SHORT).show();
-            } else {
+
                 // Registra il nuovo utente (simulato hardcoded, da sostituire con una logica reale)
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(username, password);
+                editor.putString(username, datiUtente);
                 editor.apply();
 
                 Toast.makeText(this, "Registrazione effettuata", Toast.LENGTH_SHORT).show();
                 finish(); // Chiudi l'Activity di registrazione dopo il successo
-            }
+
         }
     }
 
     // Metodo per verificare se l'utente è già registrato
     private boolean isUserRegistered(String username) {
         return sharedPreferences.contains(username);
+    }
+
+    // Metodo per verificare il formato dell'email utilizzando una regex
+    private boolean isValidEmail(CharSequence target) {
+        return Patterns.EMAIL_ADDRESS.matcher(target).matches();
     }
 }

@@ -1,5 +1,6 @@
 package com.example.yournotes;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -12,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.yournotes.MainActivity;
+import android.content.SharedPreferences;
+import android.content.Context;
 
 import org.w3c.dom.Text;
 
@@ -33,7 +38,7 @@ public class ProfileFragment extends Fragment {
 
     public Button buttonFiles;
 
-    TextView provaEmail;
+    private SharedPreferences sharedPreferences;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -87,9 +92,22 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // Ottieni un riferimento al contesto (Context) del fragment
+        Context context = getContext();
 
+        // Ottieni un riferimento alle SharedPreferences
+        sharedPreferences = context.getSharedPreferences("LoginPrefs", Context.MODE_PRIVATE);
 
+        String username = getArguments().getString("username");
 
+        String savedPassword = sharedPreferences.getString(username, "");
+        String[] datiSeparati = savedPassword.split("£");
+
+        TextView myTextView = view.findViewById(R.id.provaEmail);
+
+        String myString = datiSeparati[1];
+
+        myTextView.setText(myString);
     }
 
 }
