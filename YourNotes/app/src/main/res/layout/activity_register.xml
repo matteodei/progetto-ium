@@ -14,132 +14,162 @@
         android:background="#F3F3F3"
         >
 
-        <Button
-            android:id="@+id/backButton1"
-            android:layout_width="100dp"
-            android:layout_height="48dp"
-            android:text="Indietro"
-            android:layout_marginTop="5pt"
-            android:textColor="@color/black"
-            android:backgroundTint="#F3F3F3"
-
-            />
-
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="413dp"
+            android:layout_height="122dp"
+            android:background="@drawable/mygradient"
+            android:gravity="center"
+            android:text="YourNotes"
+            android:textColor="#FFFEFE"
+            android:textSize="48sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="30pt"
-            android:text="Nome utente:"
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="130dp"
+            android:hint="Nome Utente"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_username"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            android:id="@+id/usernameLayout">  <!-- DA IMPLEMENTARE -->
 
-        <EditText
-            android:id="@+id/editNameRegister"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45pt"
-            android:background="@color/white"
-            android:hint="nome utente"
-            android:textSize="20dp" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/registerUsername"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="75pt"
-            android:text="Email:"
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="230dp"
+            android:hint="Email"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_email"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:id="@+id/emailLayout">
 
-        <EditText
-            android:id="@+id/editEmailRegister"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="90pt"
-            android:hint="email"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/registerEmail"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="120pt"
-            android:text="Password:"
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="330dp"
+            android:hint="Password"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_password"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="password_toggle"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:id="@+id/passwordLayout">
 
-        <EditText
-            android:id="@+id/editPasswordRegister"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="135pt"
-            android:hint="password"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/registerPassword"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="165pt"
-            android:text="Conferma password:"
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="430dp"
+            android:hint="Conferma Password"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_password"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="password_toggle"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:id="@+id/confirmPasswordLayout">
 
-        <EditText
-            android:id="@+id/editConfirmPasswordRegister"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="180pt"
-            android:hint="conferma password"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/registerConfirmPassword"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="210pt"
-            android:text="Corso di Laurea:"
-            android:textSize="20dp"
-            />
+            android:layout_marginTop="530dp"
+            android:hint="Corso di laurea"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_cdl"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:id="@+id/corsoLaureaLayout">
 
-        <EditText
-            android:id="@+id/editCdLRegister"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="225pt"
-            android:hint="corso di laurea"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/registerCorsoDiLaurea"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/confirmAccountButton"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonRegister"
             android:layout_width="230dp"
             android:layout_height="48dp"
-            android:text="Crea account"
+            android:text="Registrati"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="260pt"
-            android:backgroundTint="#2196F3"
-
+            android:layout_marginTop="630dp"
+            android:background="@drawable/mygradient"
+            android:textColor="@color/white"
             />
 
-
-
-
-
-
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/backButton1"
+            android:layout_width="230dp"
+            android:layout_height="48dp"
+            android:text="Indietro"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="680dp"
+            android:background="#F3F3F3"
+            android:textColor="#588CF3"
+            style="?android:attr/borderlessButtonStyle"
+            android:textAllCaps="false"
+            />
 
 
     </RelativeLayout>
