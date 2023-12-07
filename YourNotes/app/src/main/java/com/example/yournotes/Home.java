@@ -27,29 +27,34 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+            // Ora hai l'username e puoi usarlo nella tua HomePageActivity
+
+
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        replaceFragment(new HomeFragment(), username);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
-                replaceFragment(new HomeFragment());
+                replaceFragment(new HomeFragment(), username);
             } else if (item.getItemId() == R.id.profilo) {
-                replaceFragment(new ProfileFragment());
+                replaceFragment(new ProfileFragment(), username);
             } else if (item.getItemId() == R.id.aggiungi) {
-                replaceFragment(new AggiungiFragment());
+                replaceFragment(new AggiungiFragment(), username);
             }
             return true;
         });
 
-
-
-
-
-
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment, String username){
+
+        Bundle bundle = new Bundle();
+        bundle.putString("username", username);
+        fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

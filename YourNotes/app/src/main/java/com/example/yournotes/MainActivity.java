@@ -90,20 +90,21 @@ public class MainActivity extends AppCompatActivity {
         TextInputLayout passwordLayout = findViewById(R.id.editPasswordLayout);
 
         String savedPassword = sharedPreferences.getString(username, "");
+        String[] datiSeparati = savedPassword.split("£");
 
         int controlloErrori = 0;
 
         if(username.isEmpty()){
             usernameLayout.setError("*Campo necessario");
         }else if(savedPassword.isEmpty()){
-            usernameLayout.setError("*Username sbagliato o insesistente");
+            usernameLayout.setError("*Username sbagliato o inesistente");
         }else{
             controlloErrori++;
         }
 
         if(password.isEmpty()){
             passwordLayout.setError("*Campo necessario");
-        }else if(!(savedPassword.equals(password))){
+        }else if(!(datiSeparati[0].equals(password))){
             passwordLayout.setError("*Password sbagliata");
         }else{
             controlloErrori++;
@@ -111,14 +112,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(controlloErrori == 2) {
 
-            if (!savedPassword.isEmpty() && savedPassword.equals(password)) {
+
                 // Avvia la tua HomeActivity o un'altra Activity dopo il login
                 Intent intent = new Intent(MainActivity.this, Home.class);
+                intent.putExtra("username", username);
                 startActivity(intent);
-            } else {
-                // Credenziali non valide
-                Toast.makeText(this, "Credenziali non valide", Toast.LENGTH_SHORT).show();
-            }
+
         }
     }
 
@@ -127,13 +126,10 @@ public class MainActivity extends AppCompatActivity {
         return sharedPreferences.getString("username", null) != null;
     }
 
-}
+    public String getUsername(){
+        String username = editTextUsername.getText().toString().trim();
 
-/*
-* if (email.getText().toString().equals(rEmail) && password.getText().toString().equals(rPassword)) {
-                        Toast.makeText(MainActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(MainActivity.this, Home.class);
-                        startActivity(intent);
-                    }
-*
-* */
+        return username;
+    }
+
+}
