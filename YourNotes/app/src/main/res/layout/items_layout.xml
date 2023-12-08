@@ -76,28 +76,27 @@
             android:text="seguita"
             android:textSize="18sp"/>
 
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:textAlignment="center">
+            app:layout_constraintTop_toBottomOf="@id/navBarLayout">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/visualizzaPdfTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_weight="1"
-                android:text="Visualizza PDF" />
+                android:text="Visualizza PDF"
+                android:background="@drawable/mygradient" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/seguiButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="segui" />
+                android:text="segui"
+                android:background="@drawable/mygradient"/>
         </LinearLayout>
 
     </LinearLayout>
