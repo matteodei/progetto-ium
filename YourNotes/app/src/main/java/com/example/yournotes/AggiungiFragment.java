@@ -1,81 +1,91 @@
 package com.example.yournotes;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AggiungiFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AggiungiFragment extends Fragment {
 
-
-
-    Bundle bundle = new Bundle();
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private DatabaseHelper dbHelper;
 
     public AggiungiFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AggiungiFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AggiungiFragment newInstance(String param1, String param2) {
-        AggiungiFragment fragment = new AggiungiFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
-
     }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        View rootView = inflater.inflate(R.layout.fragment_aggiungi, container, false);
 
+        dbHelper = new DatabaseHelper(requireContext());
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_aggiungi, container, false);
+        Button buttonConferma = rootView.findViewById(R.id.buttonConferma);
+        Button buttonElimina = rootView.findViewById(R.id.buttonElimina);
+
+        buttonConferma.setOnClickListener(v -> confermaInserimento());
+
+        buttonElimina.setOnClickListener(v -> eliminaDatabase());
+
+        return rootView;
     }
 
+    private void confermaInserimento() {
 
+        // Recupera i dati dai campi di input EditText
+        EditText editTextName = requireView().findViewById(R.id.editTextName);
+        EditText editTextCdL = requireView().findViewById(R.id.editTextCdL);
+        EditText editTextYear = requireView().findViewById(R.id.editTextYear);
+        EditText editTextSemester = requireView().findViewById(R.id.editTextSemester);
+        EditText editTextCourseTopics = requireView().findViewById(R.id.editTextCourseTopics);
+
+        String nome = editTextName.getText().toString();
+        String corsoDiLaurea = editTextCdL.getText().toString();
+        String anno = editTextYear.getText().toString();
+        String semestre = editTextSemester.getText().toString();
+        String argomenti = editTextCourseTopics.getText().toString();
+
+        if (!nome.isEmpty() && !corsoDiLaurea.isEmpty() && !anno.isEmpty() && !semestre.isEmpty() && !argomenti.isEmpty()) {
+
+            ContentValues values = new ContentValues();
+            values.put(CoursesContract.COLUMN_NAME, nome);
+            values.put(CoursesContract.COLUMN_CDL, corsoDiLaurea);
+            values.put(CoursesContract.COLUMN_YEAR, anno);
+            values.put(CoursesContract.COLUMN_SEMESTER, semestre);
+            values.put(CoursesContract.COLUMN_TOPICS, argomenti);
+            values.put(CoursesContract.COLUMN_FOLLOW, "1");
+
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+            db.insert(CoursesContract.TABLE_NAME, null, values);
+
+            db.close();
+
+        } else {
+            Toast.makeText(requireContext(), "Riempi tutti i campi", Toast.LENGTH_SHORT).show();
+            return;
+        }
+    }
+
+    public void eliminaDatabase() {
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(CoursesContract.TABLE_NAME, null, null);
+
+        db.close();
+
+    }
 }

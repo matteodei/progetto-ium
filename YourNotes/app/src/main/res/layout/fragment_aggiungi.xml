@@ -5,90 +5,77 @@
     android:layout_height="match_parent"
     tools:context=".AggiungiFragment">
 
-    <RelativeLayout
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#F3F3F3"
-        >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="30pt"
-            android:text="Corso di laurea:"
-            android:textSize="20dp"
-            />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/getCdl"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="45pt"
-            android:background="@color/white"
-            android:hint="CdL"
-            android:textSize="20dp" />
+            <!-- Campo di input per il nome -->
+            <EditText
+                android:id="@+id/editTextName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nome" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="75pt"
-            android:text="Materia:"
-            android:textSize="20dp"
-            />
+            <!-- Campo di input per il corso di laurea -->
+            <EditText
+                android:id="@+id/editTextCdL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Corso di laurea" />
 
-        <EditText
-            android:id="@+id/getMateria"
-            android:layout_width="340dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="90pt"
-            android:hint="materia"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <!-- Campo di input per l'anno -->
+            <EditText
+                android:id="@+id/editTextYear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Anno" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15pt"
-            android:layout_marginTop="120pt"
-            android:text="Descrizione/Argomenti:"
-            android:textSize="20dp"
-            />
+            <!-- Campo di input per il semestre -->
+            <EditText
+                android:id="@+id/editTextSemester"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="Semestre" />
 
-        <EditText
-            android:id="@+id/getDescrizione"
-            android:layout_width="340dp"
-            android:layout_height="200dp"
-            android:layout_marginTop="135pt"
-            android:hint="descrizione/argomenti"
-            android:textSize="20dp"
-            android:background="@color/white"
-            android:layout_centerHorizontal="true"
-            />
+            <!-- Campo di input per gli argomenti del corso -->
+            <EditText
+                android:id="@+id/editTextCourseTopics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Argomenti del corso" />
 
-        <Button
-            android:id="@+id/caricaButton"
-            android:layout_width="230dp"
-            android:layout_height="48dp"
-            android:text="Carica"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="235pt"
-            android:backgroundTint="#2196F3"
+            <!-- Spazio per selezionare un file PDF -->
+            <Button
+                android:id="@+id/buttonSelectPDF"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:text="Seleziona PDF" />
 
-            />
+            <Button
+                android:id="@+id/buttonConferma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Conferma"
+                android:onClick="onConfermaClick" />
 
+            <Button
+                android:id="@+id/buttonElimina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:textColor="@color/white"
+                android:text="Elimina"
+                android:onClick="onEliminaClick" />
 
-
-
-
-
-
-
-    </RelativeLayout>
-
+        </LinearLayout>
+    </ScrollView>
 </FrameLayout>

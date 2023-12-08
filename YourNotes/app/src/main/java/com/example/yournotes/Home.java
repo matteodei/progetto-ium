@@ -30,8 +30,6 @@ public class Home extends AppCompatActivity {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-            // Ora hai l'username e puoi usarlo nella tua HomePageActivity
-
 
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
