@@ -37,6 +37,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     public Button buttonFiles;
+    public Button logoutButton;
 
     private SharedPreferences sharedPreferences;
 
@@ -84,6 +85,16 @@ public class ProfileFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         buttonFiles = (Button) view.findViewById(R.id.buttonAppunti);
+        logoutButton = (Button) view.findViewById(R.id.logoutButton);
+
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         buttonFiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,11 +114,13 @@ public class ProfileFragment extends Fragment {
         String savedPassword = sharedPreferences.getString(username, "");
         String[] datiSeparati = savedPassword.split("£");
 
-        TextView myTextView = view.findViewById(R.id.provaEmail);
+        TextView emailTextView = view.findViewById(R.id.provaEmail);
+        TextView usernameTextView = view.findViewById(R.id.nomeUtente);
+        TextView corsoTextView = view.findViewById(R.id.corsoSeguito);
 
-        String myString = datiSeparati[1];
-
-        myTextView.setText(myString);
+        emailTextView.setText(datiSeparati[1]);
+        usernameTextView.setText(datiSeparati[3]);
+        corsoTextView.setText(datiSeparati[2]);
     }
 
 }

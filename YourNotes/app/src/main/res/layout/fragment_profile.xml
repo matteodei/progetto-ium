@@ -12,72 +12,106 @@
        android:layout_height="match_parent"
        android:id="@+id/contenitoreFragment">
 
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="75dp"
+           android:background="@drawable/mygradient"
+           android:gravity="center"
+           android:text="YourNotes"
+           android:textColor="#FFFEFE"
+           android:textSize="40sp" />
+
 
        <ImageView
            android:id="@+id/logo"
-           android:layout_width="100dp"
+           android:layout_width="match_parent"
            android:layout_height="100dp"
+           android:layout_marginTop="40pt"
+           android:gravity="center"
            app:srcCompat="@drawable/baseline_person_pin_24"
            tools:layout_editor_absoluteX="138dp"
-           tools:layout_editor_absoluteY="155dp"
-           android:layout_marginTop="10pt"
-           android:layout_marginLeft="10pt"
+           tools:layout_editor_absoluteY="155dp" />
+
+       <TextView
+           android:id="@+id/nomeUtente"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="85pt"
+           android:text="nome"
+           android:textSize="20dp"
+           android:gravity="center"
            />
 
        <TextView
            android:id="@+id/provaEmail"
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="55pt"
-           android:layout_marginTop="15pt"
-           android:text=""
-           android:textSize="30dp"
+           android:layout_marginTop="100pt"
+           android:text="email"
+           android:textSize="20dp"
+           android:gravity="center"
            />
 
        <TextView
-           android:layout_width="wrap_content"
+           android:id="@+id/corsoSeguito"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginLeft="55pt"
-           android:layout_marginTop="30pt"
-           android:text="Corso"
+           android:layout_marginTop="115pt"
+           android:text="corso"
            android:textSize="20dp"
+           android:gravity="center"
            />
 
        <androidx.appcompat.widget.AppCompatButton
-           android:id="@+id/buttonCorsiSeguiti"
+           android:id="@+id/buttonSeguiMaterie"
            android:layout_width="130pt"
-           android:layout_height="48pt"
+           android:layout_height="30pt"
            android:layout_centerHorizontal="true"
-           android:layout_marginTop="70pt"
+           android:layout_marginTop="140pt"
            android:background="@drawable/mybutton"
-           android:backgroundTint="#00BCD4"
+           android:backgroundTint="@color/white"
            android:padding="10dp"
-           android:text="Corsi seguiti"
-           android:textColor="#ffffff" />
+           android:text="Segui materie"
+           android:drawableStart="@drawable/ic_add"
+           />
 
        <androidx.appcompat.widget.AppCompatButton
            android:id="@+id/buttonPreferiti"
            android:layout_width="130pt"
-           android:layout_height="48pt"
+           android:layout_height="30pt"
            android:layout_centerHorizontal="true"
-           android:layout_marginTop="130pt"
+           android:layout_marginTop="180pt"
            android:background="@drawable/mybutton"
-           android:backgroundTint="#03A9F4"
+           android:backgroundTint="@color/white"
            android:padding="10dp"
            android:text="Preferiti"
-           android:textColor="#ffffff" />
+           android:drawableStart="@drawable/ic_preferiti"
+            />
 
        <androidx.appcompat.widget.AppCompatButton
            android:id="@+id/buttonAppunti"
            android:layout_width="130pt"
-           android:layout_height="48pt"
+           android:layout_height="30pt"
            android:layout_centerHorizontal="true"
-           android:layout_marginTop="190pt"
+           android:layout_marginTop="220pt"
            android:background="@drawable/mybutton"
-           android:backgroundTint="#2196F3"
+           android:backgroundTint="@color/white"
            android:padding="10dp"
            android:text="I tuoi file"
-           android:textColor="#ffffff" />
+           android:drawableStart="@drawable/ic_file"
+            />
+
+       <androidx.appcompat.widget.AppCompatButton
+           android:id="@+id/logoutButton"
+           android:layout_width="130pt"
+           android:layout_height="30pt"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="260pt"
+           android:background="@drawable/mybutton"
+           android:backgroundTint="@color/red"
+           android:padding="10dp"
+           android:text="Log out"
+           android:drawableStart="@drawable/ic_logout"/>
 
 
    </RelativeLayout>
