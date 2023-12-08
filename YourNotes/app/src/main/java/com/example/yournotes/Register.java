@@ -152,7 +152,7 @@ public class Register extends AppCompatActivity {
         String confirmPassword = editConfirmPassword.getText().toString().trim();
         String corsoLaurea = editCorsoLaurea.getText().toString().trim();
 
-        String datiUtente = password + "£" + email + "£" + corsoLaurea;
+        String datiUtente = password + "£" + email + "£" + corsoLaurea + "£" + username;
 
         TextInputLayout usernameLayout = findViewById(R.id.usernameLayout);
         TextInputLayout emailLayout = findViewById(R.id.emailLayout);
