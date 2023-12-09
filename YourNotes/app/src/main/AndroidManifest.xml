@@ -16,6 +16,9 @@
             android:name=".YourFiles"
             android:exported="false" />
         <activity
+            android:name=".SeguiMaterie"
+            android:exported="false"/>
+        <activity
             android:name=".Home"
             android:exported="false" />
         <activity

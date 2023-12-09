@@ -39,6 +39,8 @@ public class ProfileFragment extends Fragment {
     public Button buttonFiles;
     public Button logoutButton;
 
+    public Button seguiMaterieButton;
+
     private SharedPreferences sharedPreferences;
 
     public ProfileFragment() {
@@ -86,6 +88,15 @@ public class ProfileFragment extends Fragment {
 
         buttonFiles = (Button) view.findViewById(R.id.buttonAppunti);
         logoutButton = (Button) view.findViewById(R.id.logoutButton);
+        seguiMaterieButton = (Button) view.findViewById(R.id.buttonSeguiMaterie);
+
+        seguiMaterieButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SeguiMaterie.class);
+                startActivity(intent);
+            }
+        });
 
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override

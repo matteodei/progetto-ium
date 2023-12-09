@@ -20,8 +20,11 @@ public class YourFiles extends AppCompatActivity {
         buttonBackFiles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(YourFiles.this, Home.class);
-                startActivity(intent);
+                //Intent intent = new Intent(YourFiles.this, ProfileFragment.class);
+                //startActivity(intent);
+                Intent returnIntent = new Intent();
+                setResult(YourFiles.RESULT_OK, returnIntent);
+                finish();
             }
         });
     }

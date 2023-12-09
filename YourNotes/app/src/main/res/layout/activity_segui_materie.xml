@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F3F3F3"
+    tools:context=".SeguiMaterie">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:background="@drawable/mygradient"
+        android:gravity="center"
+        android:text="YourNotes"
+        android:textColor="#FFFEFE"
+        android:textSize="40sp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/titolo"/>
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="600dp"
+        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintTop_toBottomOf="@+id/titolo"
+        tools:layout_editor_absoluteX="-1dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="600dp"
+                app:layout_constraintBottom_toTopOf="@+id/backButton"
+                app:layout_constraintTop_toBottomOf="@+id/titolo"
+                >
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/listView_data"
+                    android:choiceMode="multipleChoice"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/backButton"
+        android:layout_width="230dp"
+        android:layout_height="48dp"
+        android:text="Indietro"
+        android:layout_centerHorizontal="true"
+        android:background="#F3F3F3"
+        android:textColor="#588CF3"
+        style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
