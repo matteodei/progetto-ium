@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "CorsiDB2";
+    private static final String DATABASE_NAME = "CorsiDB3";
     private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
@@ -22,7 +22,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "anno TEXT, " +
                 "semestre TEXT, " +
                 "argomenti TEXT," +
-                "seguita TEXT)";
+                "seguita TEXT,"+
+                "user TEXT)";
         db.execSQL(createTableQuery);
     }
 

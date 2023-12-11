@@ -57,6 +57,7 @@ public class AggiungiFragment extends Fragment {
         String anno = editTextYear.getText().toString();
         String semestre = editTextSemester.getText().toString();
         String argomenti = editTextCourseTopics.getText().toString();
+        String username = getArguments().getString("username");
 
         if (!nome.isEmpty() && !corsoDiLaurea.isEmpty() && !anno.isEmpty() && !semestre.isEmpty() && !argomenti.isEmpty()) {
 
@@ -67,11 +68,20 @@ public class AggiungiFragment extends Fragment {
             values.put(CoursesContract.COLUMN_SEMESTER, semestre);
             values.put(CoursesContract.COLUMN_TOPICS, argomenti);
             values.put(CoursesContract.COLUMN_FOLLOW, "1");
+            values.put(CoursesContract.COLUMN_USER, username);
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             db.insert(CoursesContract.TABLE_NAME, null, values);
 
             db.close();
+
+            editTextName.setText("");
+            editTextCdL.setText("");
+            editTextYear.setText("");
+            editTextSemester.setText("");
+            editTextCourseTopics.setText("");
+
+            Toast.makeText(requireContext(), "Corso inserito con successo", Toast.LENGTH_SHORT).show();
 
         } else {
             Toast.makeText(requireContext(), "Riempi tutti i campi", Toast.LENGTH_SHORT).show();

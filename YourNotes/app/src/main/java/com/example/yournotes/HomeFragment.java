@@ -124,6 +124,7 @@ public class HomeFragment extends Fragment {
                 TextView textViewSemestre = itemView.findViewById(R.id.semestreTextView);
                 TextView textViewArgomenti = itemView.findViewById(R.id.argomentiTextView);
                 TextView textViewFollow = itemView.findViewById(R.id.seguitaTextView);
+                TextView textViewUser = itemView.findViewById(R.id.userTextView);
 
                 String labelNome = "Corso: ";
                 @SuppressLint("Range") String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
@@ -136,6 +137,7 @@ public class HomeFragment extends Fragment {
                 String labelArgomenti = "Topic: ";
                 @SuppressLint("Range") String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
                 @SuppressLint("Range") String segui = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FOLLOW));
+                @SuppressLint("Range") String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
 
 
                 String label_nome = labelNome + nome;
@@ -164,6 +166,7 @@ public class HomeFragment extends Fragment {
                 textViewSemestre.setText(spannableStringSemestre);
                 textViewArgomenti.setText(spannableStringArgomenti);
                 textViewFollow.setText(segui);
+                textViewUser.setText(user);
 
                 containerLayout.addView(itemView);
 

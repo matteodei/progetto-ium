@@ -9,4 +9,6 @@ public class CoursesContract {
     public static final String COLUMN_SEMESTER = "semestre";
     public static final String COLUMN_TOPICS = "argomenti";
     public static final String COLUMN_FOLLOW = "seguita";
+
+    public static final String COLUMN_USER = "user";
 }
