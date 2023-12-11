@@ -94,6 +94,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), SeguiMaterie.class);
+                intent.putExtra("username", getArguments().getString("username"));
                 startActivity(intent);
             }
         });

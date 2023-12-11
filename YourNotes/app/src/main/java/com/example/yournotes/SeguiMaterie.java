@@ -4,21 +4,27 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.strictmode.GetTargetFragmentRequestCodeUsageViolation;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Map;
+
 public class SeguiMaterie extends AppCompatActivity {
 
     public Button backButton;
-
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences nomeMaterieSeguite;
     ListView listViewData;
     ArrayAdapter<String> adapter;
     String[] arrayMaterie = {
@@ -41,23 +47,84 @@ public class SeguiMaterie extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_segui_materie);
 
+        Intent intent = getIntent();
+
+        // Ottieni un riferimento alle SharedPreferences
+        sharedPreferences = getSharedPreferences("MaterieSeguite", Context.MODE_PRIVATE);
+        nomeMaterieSeguite = getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
+
         backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent intent = new Intent(YourFiles.this, ProfileFragment.class);
-                //startActivity(intent);
+                String itemSelected = "";
+                for(int i = 0; i<listViewData.getCount(); i++){
+                    if(listViewData.isItemChecked(i)){
+                        itemSelected += listViewData.getItemAtPosition(i) + "£";
+                    }
+                }
+                SharedPreferences.Editor editor = nomeMaterieSeguite.edit();
+                editor.putString(intent.getStringExtra("username"), itemSelected);
+                editor.apply();
                 Intent returnIntent = new Intent();
                 setResult(YourFiles.RESULT_OK, returnIntent);
+
+                Map<String, ?> allEntries = nomeMaterieSeguite.getAll();
+
+                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                    String key = entry.getKey();
+                    Object value = entry.getValue();
+
+                    Log.d("SharedPreferences", key + ": " + value.toString());
+                }
+
                 finish();
             }
         });
 
+        String currentSP = sharedPreferences.getString(intent.getStringExtra("username"), "");
+        String[] datiSeparati = currentSP.split("£");
+
         listViewData = findViewById(R.id.listView_data);
-
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arrayMaterie);
-
         listViewData.setAdapter(adapter);
+
+        listViewData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                boolean checked = listViewData.isItemChecked(position);
+                Log.d("CazzoCulo", String.valueOf(checked));
+                saveSelectionState(position, checked);
+            }
+        });
+
+        // Carica lo stato delle selezioni quando l'activity viene avviata
+        loadSelectionState();
+
+
+        /*if (!currentSP.equals("")) {
+            for (int i = 0; i < datiSeparati.length; i++) {
+                for (int j = 0; j < arrayMaterie.length; j++) {
+                    if (datiSeparati[i].equals(arrayMaterie[j])) {
+                        // Effettua il check direttamente sull'adapter
+                        adapter.getView(j, null, listViewData).setSelected(true);
+                    }
+                }
+            }
+        }*/
+
+    }
+
+    private void saveSelectionState(int position, boolean checked) {
+        // Salva lo stato dell'elemento nella SharedPreferences
+        sharedPreferences.edit().putBoolean(String.valueOf(position), checked).apply();
+    }
+
+    private void loadSelectionState() {
+        for (int i = 0; i < arrayMaterie.length; i++) {
+            boolean isSelected = sharedPreferences.getBoolean(String.valueOf(i), false);
+            listViewData.setItemChecked(i, isSelected);
+        }
     }
 
     @Override
