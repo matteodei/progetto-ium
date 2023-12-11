@@ -2,13 +2,18 @@ package com.example.yournotes;
 
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
+import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +22,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.SpannableString;
 
+import java.util.Arrays;
+import java.util.List;
+
+
 public class HomeFragment extends Fragment {
 
     DatabaseHelper dbHelper;
     LinearLayout containerLayout;
+    SharedPreferences sharedPreferences;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -42,16 +52,31 @@ public class HomeFragment extends Fragment {
         Button perTeButton = rootView.findViewById(R.id.perTeButton);
         Button seguitiButton = rootView.findViewById(R.id.seguitiButton);
 
-        perTeButton.setOnClickListener(v -> cambioPagina(0));
-        seguitiButton.setOnClickListener((v -> cambioPagina(1)));
+        String username = getArguments().getString("username");
 
-        cambioPagina(1);
+        //aka tuttoButton
+        seguitiButton.setOnClickListener(v -> {
+            seguitiButton.setBackgroundColor(Color.rgb(50,50,50));
+            perTeButton.setBackgroundColor(Color.rgb(200,200,200));
 
+            cambioPaginaNome(1,username);
+        });
+
+        perTeButton.setOnClickListener(v -> {
+            perTeButton.setBackgroundColor(Color.rgb(50,50,50));
+            seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
+
+            cambioPaginaNome(0, username);
+        });
+
+        perTeButton.setBackgroundColor(Color.rgb(50,50,50));
+        seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
+        cambioPaginaNome(0, username);
 
         return rootView;
     }
 
-    public void updateFollowState(int id, int flagSeguiti) {
+    public void updateFollowState(int id, int flagSeguiti, String username) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         String columnName = CoursesContract.COLUMN_FOLLOW;
@@ -87,28 +112,62 @@ public class HomeFragment extends Fragment {
             cursor.close();
         }
 
-        cambioPagina(flagSeguiti);
+        cambioPaginaNome(flagSeguiti, username);
     }
 
-    public void cambioPagina(int flagSeguiti) {
+    public void cambioPaginaNome(int flagSeguiti, String username) {
 
         containerLayout.removeAllViews();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
+        StringBuilder selection;
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
+        String materiePrefe = sharedPreferences.getString(username, "");
+        String[] materiePrefeSplit = materiePrefe.split("£");
 
-        String selection = "seguita=?";
-        String[] selectionArgs = {String.valueOf(flagSeguiti)};
+        Log.d("MATERIE_CHE_SEGUI", materiePrefe);
 
-        Cursor cursor = db.query(
-                CoursesContract.TABLE_NAME,
-                null,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
+        if (flagSeguiti == 0){
+            selection = null;
+            materiePrefeSplit = null;
+        }
+        else {
+
+            selection = new StringBuilder();
+            for (int i = 0; i < materiePrefeSplit.length; i++) {
+                if (i > 0) {
+                    selection.append(" OR ");
+                }
+                selection.append("nome=?");
+            }
+        }
+
+        Cursor cursor;
+        if (selection != null) {
+            cursor = db.query(
+                    CoursesContract.TABLE_NAME,
+                    null,
+                    selection.toString(),
+                    materiePrefeSplit,
+                    null,
+                    null,
+                    null
+            );
+        } else {
+
+            cursor = db.query(
+                    CoursesContract.TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+            );
+        }
+
+
 
         if (cursor != null && cursor.moveToFirst()) {
             do {
@@ -116,8 +175,8 @@ public class HomeFragment extends Fragment {
 
                 Button followButton = itemView.findViewById(R.id.seguiButton);
                 final int idIndex = cursor.getColumnIndex("_id");
-                final int itemID = cursor.getInt(idIndex); // Ottieni l'ID corrente dal cursore
-                followButton.setOnClickListener(v -> updateFollowState(itemID, flagSeguiti));
+                final int itemID = cursor.getInt(idIndex);
+                followButton.setOnClickListener(v -> updateFollowState(itemID, flagSeguiti, username));
                 TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                 TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                 TextView textViewAnno = itemView.findViewById(R.id.annoTextView);

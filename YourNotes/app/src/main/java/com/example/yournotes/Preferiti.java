@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class YourFiles extends AppCompatActivity {
+public class Preferiti extends AppCompatActivity {
 
     public Button buttonBackFiles;
     LinearLayout containerLayout;
@@ -28,24 +28,22 @@ public class YourFiles extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_files);
+        setContentView(R.layout.activity_preferiti);
 
-        buttonBackFiles = findViewById(R.id.backButtonFiles);
+        buttonBackFiles = (Button) findViewById(R.id.backButtonFiles);
+
+        buttonBackFiles.setOnClickListener(view -> {
+            setResult(YourFiles.RESULT_OK, new Intent());
+            finish();
+        });
+
         containerLayout = findViewById(R.id.containerLayout);
         dbHelper = new DatabaseHelper(this);
-
-        buttonBackFiles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent returnIntent = new Intent();
-                setResult(YourFiles.RESULT_OK, returnIntent);
-                finish();
-            }
-        });
 
         String username = getIntent().getStringExtra("username");
 
         cambioPaginaNome(1, username);
+
 
     }
 
@@ -94,8 +92,9 @@ public class YourFiles extends AppCompatActivity {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        String selection = "user=?";
-        String[] selectionArgs = {username};
+        // BUG MULTIUSER: I PREFERITI SONO "CONDIVISI" FRA UTENTI DIVERSI, FARE IN MODO CHE SIANO PERSONALI.
+        String selection = "seguita=?";
+        String[] selectionArgs = {String.valueOf(flagSeguiti)};
 
         Cursor cursor = db.query(
                 CoursesContract.TABLE_NAME,
@@ -175,3 +174,4 @@ public class YourFiles extends AppCompatActivity {
 
     }
 }
+

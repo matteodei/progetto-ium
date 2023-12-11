@@ -87,7 +87,8 @@ public class SeguiMaterie extends AppCompatActivity {
                 saveSelectionState(position, checked);
             }
         });
-
+        // BUG MULTIUSER: QUANDO SWITCHO UTENTE E VIENE RICARICATO LO STATO DELLE CHECKED VENGONO
+        // ASSEGNATE QUELLE DELL'ALTRO UTENTE APPENA SLOGGATO.
         // Carica lo stato delle selezioni quando l'activity viene avviata
         loadSelectionState();
 
