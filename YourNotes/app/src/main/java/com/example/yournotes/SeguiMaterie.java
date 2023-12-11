@@ -69,15 +69,6 @@ public class SeguiMaterie extends AppCompatActivity {
                 Intent returnIntent = new Intent();
                 setResult(YourFiles.RESULT_OK, returnIntent);
 
-                Map<String, ?> allEntries = nomeMaterieSeguite.getAll();
-
-                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                    String key = entry.getKey();
-                    Object value = entry.getValue();
-
-                    Log.d("SharedPreferences", key + ": " + value.toString());
-                }
-
                 finish();
             }
         });
@@ -93,25 +84,12 @@ public class SeguiMaterie extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 boolean checked = listViewData.isItemChecked(position);
-                Log.d("CazzoCulo", String.valueOf(checked));
                 saveSelectionState(position, checked);
             }
         });
 
         // Carica lo stato delle selezioni quando l'activity viene avviata
         loadSelectionState();
-
-
-        /*if (!currentSP.equals("")) {
-            for (int i = 0; i < datiSeparati.length; i++) {
-                for (int j = 0; j < arrayMaterie.length; j++) {
-                    if (datiSeparati[i].equals(arrayMaterie[j])) {
-                        // Effettua il check direttamente sull'adapter
-                        adapter.getView(j, null, listViewData).setSelected(true);
-                    }
-                }
-            }
-        }*/
 
     }
 
@@ -125,28 +103,6 @@ public class SeguiMaterie extends AppCompatActivity {
             boolean isSelected = sharedPreferences.getBoolean(String.valueOf(i), false);
             listViewData.setItemChecked(i, isSelected);
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.lista_materie, menu);
-        Log.d("onCreateOptionsMenu", "FUNZIONA");
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item){
-        int id = item.getItemId();
-        if(id == R.id.item_done){
-            String itemSelected = "Selected items: \n";
-            for(int i = 0; i<listViewData.getCount(); i++){
-                if(listViewData.isItemChecked(i)){
-                    itemSelected += listViewData.getItemAtPosition(i) + "\n";
-                }
-            }
-            Toast.makeText(this, itemSelected, Toast.LENGTH_SHORT).show();
-        }
-        return super.onOptionsItemSelected(item);
     }
 
 }
