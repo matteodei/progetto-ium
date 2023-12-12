@@ -1,81 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AggiungiFragment">
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#F3F3F3"
+        >
 
-        <LinearLayout
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@drawable/mygradient"
+            android:gravity="center"
+            android:text="YourNotes"
+            android:textColor="#FFFEFE"
+            android:textSize="40sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:layout_marginTop="85dp"
+            android:hint="Nome Materia"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_cdl"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            android:id="@+id/editTextNameLayout">
 
-            <!-- Campo di input per il nome -->
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:id="@+id/editTextName"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp"
+            android:hint="Corso di laurea"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_laurea"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            android:id="@+id/editTextCdLLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nome" />
-
-            <!-- Campo di input per il corso di laurea -->
-            <EditText
+                android:textColor="@color/black"
                 android:id="@+id/editTextCdL"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Corso di laurea" />
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo di input per l'anno -->
-            <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="255dp"
+            android:hint="Anno"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:id="@+id/editTextYearLayout"
+            app:startIconDrawable="@drawable/ic_data">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:id="@+id/editTextYear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Anno" />
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo di input per il semestre -->
-            <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="255dp"
+            android:hint="Semestre"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            android:layout_marginStart="200dp"
+            android:layout_marginEnd="32dp"
+            android:id="@+id/editTextSemesterLayout"
+            app:startIconDrawable="@drawable/ic_data">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:id="@+id/editTextSemester"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="Semestre" />
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Campo di input per gli argomenti del corso -->
-            <EditText
+        <com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginTop="340dp"
+            android:hint="Argomenti del corso"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_argomenti"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            android:id="@+id/editTextCourseTopicsLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="135dp"
+                android:textColor="@color/black"
                 android:id="@+id/editTextCourseTopics"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Argomenti del corso" />
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Spazio per selezionare un file PDF -->
-            <Button
-                android:id="@+id/buttonSelectPDF"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:text="Seleziona PDF" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonConferma"
+            android:layout_width="230dp"
+            android:layout_height="48dp"
+            android:text="Conferma"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="600dp"
+            android:background="@drawable/mygradient"
+            android:textColor="@color/white"
+            android:onClick="onConfermaClick"
+            />
 
-            <Button
-                android:id="@+id/buttonConferma"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Conferma"
-                android:onClick="onConfermaClick" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/buttonSelectPDF"
+            android:layout_width="330dp"
+            android:layout_height="58dp"
+            android:text="Carica PDF"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="510dp"
+            android:background="@drawable/mygradient"
+            android:textColor="@color/white"
+            android:onClick="onConfermaClick"
+            />
 
-            <Button
+            <!--<Button
                 android:id="@+id/buttonElimina"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/black"
                 android:textColor="@color/white"
                 android:text="Elimina"
-                android:onClick="onEliminaClick" />
+                android:onClick="onEliminaClick" />-->
 
-        </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

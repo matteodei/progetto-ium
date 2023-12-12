@@ -50,7 +50,6 @@ public class SeguiMaterie extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Ottieni un riferimento alle SharedPreferences
-        sharedPreferences = getSharedPreferences("MaterieSeguite", Context.MODE_PRIVATE);
         nomeMaterieSeguite = getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
 
         backButton = (Button) findViewById(R.id.backButton);
@@ -73,9 +72,6 @@ public class SeguiMaterie extends AppCompatActivity {
             }
         });
 
-        String currentSP = sharedPreferences.getString(intent.getStringExtra("username"), "");
-        String[] datiSeparati = currentSP.split("£");
-
         listViewData = findViewById(R.id.listView_data);
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, arrayMaterie);
         listViewData.setAdapter(adapter);
@@ -87,21 +83,22 @@ public class SeguiMaterie extends AppCompatActivity {
                 saveSelectionState(position, checked);
             }
         });
-        // BUG MULTIUSER: QUANDO SWITCHO UTENTE E VIENE RICARICATO LO STATO DELLE CHECKED VENGONO
-        // ASSEGNATE QUELLE DELL'ALTRO UTENTE APPENA SLOGGATO.
-        // Carica lo stato delle selezioni quando l'activity viene avviata
         loadSelectionState();
 
     }
 
     private void saveSelectionState(int position, boolean checked) {
+        String utenteCorrente = getIntent().getStringExtra("username");
+        String chiaveCombinata = String.valueOf(position) + "£" + utenteCorrente;
         // Salva lo stato dell'elemento nella SharedPreferences
-        sharedPreferences.edit().putBoolean(String.valueOf(position), checked).apply();
+        nomeMaterieSeguite.edit().putBoolean(chiaveCombinata, checked).apply();
     }
 
     private void loadSelectionState() {
         for (int i = 0; i < arrayMaterie.length; i++) {
-            boolean isSelected = sharedPreferences.getBoolean(String.valueOf(i), false);
+            String utenteCorrente = getIntent().getStringExtra("username");
+            String chiaveCombinata = i + "£" + utenteCorrente;
+            boolean isSelected = nomeMaterieSeguite.getBoolean(chiaveCombinata, false);
             listViewData.setItemChecked(i, isSelected);
         }
     }

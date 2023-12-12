@@ -34,11 +34,11 @@ public class AggiungiFragment extends Fragment {
         dbHelper = new DatabaseHelper(requireContext());
 
         Button buttonConferma = rootView.findViewById(R.id.buttonConferma);
-        Button buttonElimina = rootView.findViewById(R.id.buttonElimina);
+        //Button buttonElimina = rootView.findViewById(R.id.buttonElimina);
 
         buttonConferma.setOnClickListener(v -> confermaInserimento());
 
-        buttonElimina.setOnClickListener(v -> eliminaDatabase());
+        //buttonElimina.setOnClickListener(v -> eliminaDatabase());
 
         return rootView;
     }
@@ -67,7 +67,7 @@ public class AggiungiFragment extends Fragment {
             values.put(CoursesContract.COLUMN_YEAR, anno);
             values.put(CoursesContract.COLUMN_SEMESTER, semestre);
             values.put(CoursesContract.COLUMN_TOPICS, argomenti);
-            values.put(CoursesContract.COLUMN_FOLLOW, "1");
+            values.put(CoursesContract.COLUMN_FOLLOW, "0");
             values.put(CoursesContract.COLUMN_USER, username);
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();

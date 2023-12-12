@@ -9,7 +9,7 @@
     <item
         android:id="@+id/aggiungi"
         android:icon="@drawable/baseline_add_circle_outline_24"
-        android:title="Aggiungi"
+        android:title="Carica"
         />
     <item
         android:id="@+id/profilo"
