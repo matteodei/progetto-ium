@@ -105,6 +105,10 @@ public class Preferiti extends AppCompatActivity {
                         @SuppressLint("InflateParams") View itemView = LayoutInflater.from(this).inflate(R.layout.items_layout, null);
 
                         Button followButton = itemView.findViewById(R.id.seguiButton);
+
+                        followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
+
+
                         TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                         TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                         TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
@@ -172,7 +176,6 @@ public class Preferiti extends AppCompatActivity {
 
     }
 
-    @SuppressLint("Range")
     public void updateUI(String username){
         containerLayout.removeAllViews();
 

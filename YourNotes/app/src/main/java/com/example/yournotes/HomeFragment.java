@@ -93,9 +93,6 @@ public class HomeFragment extends Fragment {
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-        ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
-        Log.d("materia prefee", TextUtils.join(", ", idCorsiSeguiti));
-
         StringBuilder selection;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
         String materiePrefe = sharedPreferences.getString(username, "");
@@ -144,9 +141,6 @@ public class HomeFragment extends Fragment {
             do {
                 @SuppressLint("InflateParams") View itemView = LayoutInflater.from(getContext()).inflate(R.layout.items_layout, null);
 
-                final int idIndex = cursor.getColumnIndex("_id");
-                final int itemID = cursor.getInt(idIndex);
-
                 AppCompatButton followButton = itemView.findViewById(R.id.seguiButton);
                 TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                 TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
@@ -154,6 +148,17 @@ public class HomeFragment extends Fragment {
                 TextView textViewSemestre = itemView.findViewById(R.id.semestreTextView);
                 TextView textViewArgomenti = itemView.findViewById(R.id.argomentiTextView);
                 TextView textViewUser = itemView.findViewById(R.id.userTextView);
+
+                final int idIndex = cursor.getColumnIndex("_id");
+                final int itemID = cursor.getInt(idIndex);
+                ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
+                Log.d("Materia preferite", TextUtils.join(", ", idCorsiSeguiti));
+                Log.d("Materia attuale", String.valueOf(itemID));
+
+                if( idCorsiSeguiti.contains(String.valueOf(itemID)))
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
+                else
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti);
 
                 String labelNome = "Materia: ";
                 String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
@@ -172,9 +177,10 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         dbHelper.updateFollowState(username, itemID);
+                        updateUI(flagSeguiti,username);
 
-                        isImage1 = !isImage1;
-                        followButton.setBackgroundResource(isImage1 ? R.drawable.ic_preferiti : R.drawable.ic_preferiti_rosso);
+                        /*isImage1 = !isImage1;
+                        followButton.setBackgroundResource(isImage1 ? R.drawable.ic_preferiti : R.drawable.ic_preferiti_rosso);*/
                     }
                 });
 
@@ -213,5 +219,11 @@ public class HomeFragment extends Fragment {
 
         db.close();
 
+    }
+
+    public void updateUI(int flagSeguiti, String username){
+        containerLayout.removeAllViews();
+
+        cambioPaginaNome(flagSeguiti,username);
     }
 }
