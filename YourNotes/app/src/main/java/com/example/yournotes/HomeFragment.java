@@ -21,7 +21,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.SpannableString;
-
+import java.util.Map;
 import java.util.Arrays;
 import java.util.List;
 
@@ -76,45 +76,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    public void updateFollowState(int id, int flagSeguiti, String username) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-        String columnName = CoursesContract.COLUMN_FOLLOW;
-
-        String selection = "_id=?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        Cursor cursor = db.query(
-                CoursesContract.TABLE_NAME,
-                null,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String currentValue = cursor.getString(cursor.getColumnIndex(columnName));
-
-                // Inverti il valore: se è 0, diventa 1 e viceversa
-                String newValue = (currentValue.equals("0")) ? "1" : "0";
-
-                // Aggiorna il valore solo per la riga specifica nell'ID fornito
-                ContentValues values = new ContentValues();
-                values.put(columnName, newValue);
-
-                // Esegui l'update solo per la riga specifica dell'ID
-                db.update(CoursesContract.TABLE_NAME, values, "_id=?", new String[]{String.valueOf(id)});
-
-            } while (cursor.moveToNext());
-            cursor.close();
-        }
-
-        cambioPaginaNome(flagSeguiti, username);
-    }
-
+    @SuppressLint("Range")
     public void cambioPaginaNome(int flagSeguiti, String username) {
 
         containerLayout.removeAllViews();
@@ -125,8 +87,6 @@ public class HomeFragment extends Fragment {
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
         String materiePrefe = sharedPreferences.getString(username, "");
         String[] materiePrefeSplit = materiePrefe.split("£");
-
-        Log.d("MATERIE_CHE_SEGUI", materiePrefe);
 
         if (flagSeguiti == 0){
             selection = null;
@@ -167,16 +127,14 @@ public class HomeFragment extends Fragment {
             );
         }
 
-
-
         if (cursor != null && cursor.moveToFirst()) {
             do {
                 @SuppressLint("InflateParams") View itemView = LayoutInflater.from(getContext()).inflate(R.layout.items_layout, null);
 
-                Button followButton = itemView.findViewById(R.id.seguiButton);
                 final int idIndex = cursor.getColumnIndex("_id");
                 final int itemID = cursor.getInt(idIndex);
-                followButton.setOnClickListener(v -> updateFollowState(itemID, flagSeguiti, username));
+
+                Button followButton = itemView.findViewById(R.id.seguiButton);
                 TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                 TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                 TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
@@ -186,18 +144,19 @@ public class HomeFragment extends Fragment {
                 TextView textViewUser = itemView.findViewById(R.id.userTextView);
 
                 String labelNome = "Corso: ";
-                @SuppressLint("Range") String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
+                String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
                 String labelCorso = "Cdl: ";
-                @SuppressLint("Range") String corso = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_CDL));
+                String corso = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_CDL));
                 String labelAnno = "Anno: ";
-                @SuppressLint("Range") String anno = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_YEAR));
+                String anno = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_YEAR));
                 String labelSemestre = "Semestre: ";
-                @SuppressLint("Range") String semetre = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_SEMESTER));
+                String semetre = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_SEMESTER));
                 String labelArgomenti = "Topic: ";
-                @SuppressLint("Range") String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
-                @SuppressLint("Range") String segui = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FOLLOW));
-                @SuppressLint("Range") String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
+                String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
+                String segui = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FOLLOW));
+                String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
 
+                followButton.setOnClickListener(v -> dbHelper.updateFollowState(username, itemID));
 
                 String label_nome = labelNome + nome;
                 SpannableString spannableStringNome = new SpannableString(label_nome);
