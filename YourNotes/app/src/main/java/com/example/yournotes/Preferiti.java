@@ -116,15 +116,15 @@ public class Preferiti extends AppCompatActivity {
                         final int idIndex = cursor.getColumnIndex("_id");
                         final int itemID = cursor.getInt(idIndex);
 
-                        String labelNome = "Corso: ";
+                        String labelNome = "Materia: ";
                         String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
-                        String labelCorso = "Cdl: ";
+                        String labelCorso = "CdL: ";
                         String corso = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_CDL));
                         String labelAnno = "Anno: ";
                         String anno = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_YEAR));
                         String labelSemestre = "Semestre: ";
                         String semetre = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_SEMESTER));
-                        String labelArgomenti = "Topic: ";
+                        String labelArgomenti = "";
                         String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
                         String segui = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FOLLOW));
                         String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));

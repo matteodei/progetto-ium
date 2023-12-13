@@ -9,7 +9,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.style.StyleSpan;
@@ -31,6 +36,8 @@ public class HomeFragment extends Fragment {
     DatabaseHelper dbHelper;
     LinearLayout containerLayout;
     SharedPreferences sharedPreferences;
+
+    boolean isImage1 = true;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -134,7 +141,7 @@ public class HomeFragment extends Fragment {
                 final int idIndex = cursor.getColumnIndex("_id");
                 final int itemID = cursor.getInt(idIndex);
 
-                Button followButton = itemView.findViewById(R.id.seguiButton);
+                AppCompatButton followButton = itemView.findViewById(R.id.seguiButton);
                 TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                 TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                 TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
@@ -142,20 +149,28 @@ public class HomeFragment extends Fragment {
                 TextView textViewArgomenti = itemView.findViewById(R.id.argomentiTextView);
                 TextView textViewUser = itemView.findViewById(R.id.userTextView);
 
-                String labelNome = "Corso: ";
+                String labelNome = "Materia: ";
                 String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
-                String labelCorso = "Cdl: ";
+                String labelCorso = "CdL: ";
                 String corso = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_CDL));
                 String labelAnno = "Anno: ";
                 String anno = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_YEAR));
                 String labelSemestre = "Semestre: ";
                 String semetre = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_SEMESTER));
-                String labelArgomenti = "Topic: ";
+                String labelArgomenti = "";
                 String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
-                String segui = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FOLLOW));
                 String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
 
-                followButton.setOnClickListener(v -> dbHelper.updateFollowState(username, itemID));
+
+                followButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dbHelper.updateFollowState(username, itemID);
+
+                        isImage1 = !isImage1;
+                        followButton.setBackgroundResource(isImage1 ? R.drawable.ic_preferiti : R.drawable.ic_preferiti_rosso);
+                    }
+                });
 
                 String label_nome = labelNome + nome;
                 SpannableString spannableStringNome = new SpannableString(label_nome);
