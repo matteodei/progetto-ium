@@ -120,7 +120,6 @@ public class YourFiles extends AppCompatActivity {
                 TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
                 TextView textViewSemestre = itemView.findViewById(R.id.semestreTextView);
                 TextView textViewArgomenti = itemView.findViewById(R.id.argomentiTextView);
-                TextView textViewFollow = itemView.findViewById(R.id.seguitaTextView);
                 TextView textViewUser = itemView.findViewById(R.id.userTextView);
 
                 String labelNome = "Corso: ";
@@ -162,7 +161,6 @@ public class YourFiles extends AppCompatActivity {
                 textViewAnno.setText(spannableStringAnno);
                 textViewSemestre.setText(spannableStringSemestre);
                 textViewArgomenti.setText(spannableStringArgomenti);
-                textViewFollow.setText(segui);
                 textViewUser.setText(user);
 
                 containerLayout.addView(itemView);
