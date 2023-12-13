@@ -23,6 +23,32 @@
             android:textColor="#FFFEFE"
             android:textSize="40sp" />
 
+        <!--<com.google.android.material.textfield.TextInputLayout
+            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="85dp"
+            android:hint="Nome Materia"
+            app:boxStrokeColor="@color/black"
+            app:hintTextColor="@color/black"
+            app:startIconDrawable="@drawable/ic_cdl"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            app:endIconMode="clear_text"
+            app:counterEnabled="true"
+            app:counterMaxLength="20"
+            app:errorEnabled="true"
+            app:helperTextEnabled="true"
+            android:id="@+id/editTextNameLayout">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/editTextName"
+                />
+        </com.google.android.material.textfield.TextInputLayout>-->
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="match_parent"
@@ -41,12 +67,13 @@
             app:helperTextEnabled="true"
             android:id="@+id/editTextNameLayout">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <AutoCompleteTextView
+                android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:id="@+id/editTextName"
-                />
+                android:inputType="textAutoComplete"
+                android:imeOptions="actionDone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -73,7 +100,7 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
+        <!--<com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="160dp"
             android:layout_height="wrap_content"
@@ -113,7 +140,24 @@
                 android:textColor="@color/black"
                 android:id="@+id/editTextSemester"
                 />
-        </com.google.android.material.textfield.TextInputLayout>
+        </com.google.android.material.textfield.TextInputLayout>-->
+
+        <Spinner
+            android:id="@+id/spinnerAnno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="255dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="31dp"/>
+
+        <!-- Spinner per il semestre -->
+        <Spinner
+            android:id="@+id/spinnerSemestre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="255dp"
+            android:layout_marginStart="201dp"
+            android:layout_marginEnd="32dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
