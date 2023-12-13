@@ -108,7 +108,6 @@ public class Preferiti extends AppCompatActivity {
 
                         followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
 
-
                         TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                         TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                         TextView textViewAnno = itemView.findViewById(R.id.annoTextView);

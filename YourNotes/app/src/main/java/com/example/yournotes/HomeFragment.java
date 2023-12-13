@@ -1,20 +1,14 @@
 package com.example.yournotes;
 
 import android.annotation.SuppressLint;
-import android.content.ContentValues;
-import android.content.Intent;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.TextUtils;
@@ -25,26 +19,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.text.SpannableString;
-
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Arrays;
-import java.util.List;
-
 
 public class HomeFragment extends Fragment {
-
     DatabaseHelper dbHelper;
     LinearLayout containerLayout;
-    SharedPreferences sharedPreferences;
-
-    boolean isImage1 = true;
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    int flagMaterieSeguite;
+    public HomeFragment() {}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +39,6 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         containerLayout = rootView.findViewById(R.id.containerLayout);
@@ -63,42 +47,57 @@ public class HomeFragment extends Fragment {
         Button seguitiButton = rootView.findViewById(R.id.seguitiButton);
 
         String username = getArguments().getString("username");
+        SearchView searchView = rootView.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Quando l'utente preme il tasto "Submit" nella tastiera
+                performSearch(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                // Ogni volta che il testo nella SearchView cambia
+                performSearch(newText);
+                return false;
+            }
+        });
 
         //aka tuttoButton
         seguitiButton.setOnClickListener(v -> {
             seguitiButton.setBackgroundColor(Color.rgb(50,50,50));
             perTeButton.setBackgroundColor(Color.rgb(200,200,200));
-
-            cambioPaginaNome(1,username);
+            flagMaterieSeguite=1;
+            cambioPaginaNome(username);
         });
 
         perTeButton.setOnClickListener(v -> {
             perTeButton.setBackgroundColor(Color.rgb(50,50,50));
             seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
-
-            cambioPaginaNome(0, username);
+            flagMaterieSeguite=0;
+            cambioPaginaNome(username);
         });
 
         perTeButton.setBackgroundColor(Color.rgb(50,50,50));
         seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
-        cambioPaginaNome(0, username);
+        cambioPaginaNome(username);
 
         return rootView;
     }
 
     @SuppressLint("Range")
-    public void cambioPaginaNome(int flagSeguiti, String username) {
+    public void cambioPaginaNome(String username) {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         containerLayout.removeAllViews();
-
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
 
         StringBuilder selection;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
         String materiePrefe = sharedPreferences.getString(username, "");
         String[] materiePrefeSplit = materiePrefe.split("£");
 
-        if (flagSeguiti == 0){
+        if (flagMaterieSeguite == 0){
             selection = null;
             materiePrefeSplit = null;
         }
@@ -172,16 +171,11 @@ public class HomeFragment extends Fragment {
                 String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
                 String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
 
-
-                followButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dbHelper.updateFollowState(username, itemID);
-                        updateUI(flagSeguiti,username);
-
-                        /*isImage1 = !isImage1;
-                        followButton.setBackgroundResource(isImage1 ? R.drawable.ic_preferiti : R.drawable.ic_preferiti_rosso);*/
-                    }
+                followButton.setOnClickListener(v -> {
+                    dbHelper.updateFollowState(username, itemID);
+                    //update UI
+                    containerLayout.removeAllViews();
+                    cambioPaginaNome(username);
                 });
 
                 String label_nome = labelNome + nome;
@@ -221,9 +215,137 @@ public class HomeFragment extends Fragment {
 
     }
 
-    public void updateUI(int flagSeguiti, String username){
+    @SuppressLint("Range")
+    private void performSearch(String query) {
+
         containerLayout.removeAllViews();
 
-        cambioPaginaNome(flagSeguiti,username);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        String username = getArguments().getString("username");
+
+        StringBuilder selection = new StringBuilder();
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);
+        String materiePrefe = sharedPreferences.getString(username, "");
+        String[] materiePrefeSplit = materiePrefe.split("£");
+
+        Cursor cursor = null;
+
+        if (flagMaterieSeguite == 0){
+            selection.append("nome LIKE ?");
+            materiePrefeSplit = null;
+
+            cursor = db.query(
+                    CoursesContract.TABLE_NAME,
+                    null,
+                    selection.toString(),
+                    new String[]{"%" + query + "%"},
+                    null,
+                    null,
+                    null
+            );
+        }
+        else if (flagMaterieSeguite == 1) {
+
+            selection = new StringBuilder();
+            for (int i = 0; i < materiePrefeSplit.length; i++) {
+                if (i > 0) {
+                    selection.append(" OR ");
+                }
+                selection.append("nome=?");
+            }
+            selection.append("AND nome LIKE ?");
+
+            String[] selectionArgs = new String[materiePrefeSplit.length + 1];
+
+            System.arraycopy(materiePrefeSplit, 0, selectionArgs, 0, materiePrefeSplit.length);
+            selectionArgs[materiePrefeSplit.length] = "%" + query + "%";
+
+            cursor = db.query(
+                    CoursesContract.TABLE_NAME,
+                    null,
+                    selection.toString(),
+                    selectionArgs,
+                    null,
+                    null,
+                    null
+            );
+        }
+
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                @SuppressLint("InflateParams") View itemView = LayoutInflater.from(getContext()).inflate(R.layout.items_layout, null);
+
+                AppCompatButton followButton = itemView.findViewById(R.id.seguiButton);
+                TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
+                TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
+                TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
+                TextView textViewSemestre = itemView.findViewById(R.id.semestreTextView);
+                TextView textViewArgomenti = itemView.findViewById(R.id.argomentiTextView);
+                TextView textViewUser = itemView.findViewById(R.id.userTextView);
+
+                final int idIndex = cursor.getColumnIndex("_id");
+                final int itemID = cursor.getInt(idIndex);
+                ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
+                Log.d("Materia preferite", TextUtils.join(", ", idCorsiSeguiti));
+                Log.d("Materia attuale", String.valueOf(itemID));
+
+                if( idCorsiSeguiti.contains(String.valueOf(itemID)))
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
+                else
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti);
+
+                String labelNome = "Materia: ";
+                String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
+                String labelCorso = "CdL: ";
+                String corso = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_CDL));
+                String labelAnno = "Anno: ";
+                String anno = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_YEAR));
+                String labelSemestre = "Semestre: ";
+                String semetre = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_SEMESTER));
+                String labelArgomenti = "";
+                String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
+                String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
+
+                followButton.setOnClickListener(v -> {
+                    dbHelper.updateFollowState(username, itemID);
+                    containerLayout.removeAllViews();
+                    performSearch(query);
+                });
+
+                String label_nome = labelNome + nome;
+                SpannableString spannableStringNome = new SpannableString(label_nome);
+                spannableStringNome.setSpan(new StyleSpan(Typeface.BOLD), 0, labelNome.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                String label_cdl = labelCorso + corso;
+                SpannableString spannableStringCdL = new SpannableString(label_cdl);
+                spannableStringCdL.setSpan(new StyleSpan(Typeface.BOLD), 0, labelCorso.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                String label_anno = labelAnno + anno;
+                SpannableString spannableStringAnno = new SpannableString(label_anno);
+                spannableStringAnno.setSpan(new StyleSpan(Typeface.BOLD), 0, labelAnno.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                String label_semestre = labelSemestre + semetre;
+                SpannableString spannableStringSemestre = new SpannableString(label_semestre);
+                spannableStringSemestre.setSpan(new StyleSpan(Typeface.BOLD), 0, labelSemestre.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                String label_topic = labelArgomenti + argomenti;
+                SpannableString spannableStringArgomenti = new SpannableString(label_topic);
+                spannableStringArgomenti.setSpan(new StyleSpan(Typeface.BOLD), 0, labelArgomenti.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                textViewNome.setText(spannableStringNome);
+                textViewCorso.setText(spannableStringCdL);
+                textViewAnno.setText(spannableStringAnno);
+                textViewSemestre.setText(spannableStringSemestre);
+                textViewArgomenti.setText(spannableStringArgomenti);
+                textViewUser.setText(user);
+
+                containerLayout.addView(itemView);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+
+        db.close();
     }
 }
