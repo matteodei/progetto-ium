@@ -102,7 +102,6 @@ public class Preferiti extends AppCompatActivity {
 
                 if (cursor != null && cursor.moveToFirst()) {
                     do {
-                        Log.d("DENTRO", "DENTROOO");
                         @SuppressLint("InflateParams") View itemView = LayoutInflater.from(this).inflate(R.layout.items_layout, null);
 
                         Button followButton = itemView.findViewById(R.id.seguiButton);

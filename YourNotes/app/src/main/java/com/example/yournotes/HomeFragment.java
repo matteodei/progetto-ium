@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import android.text.Spannable;
+import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.text.SpannableString;
+
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Arrays;
 import java.util.List;
@@ -89,6 +92,9 @@ public class HomeFragment extends Fragment {
         containerLayout.removeAllViews();
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+        ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
+        Log.d("materia prefee", TextUtils.join(", ", idCorsiSeguiti));
 
         StringBuilder selection;
         SharedPreferences sharedPreferences = requireContext().getSharedPreferences("MaterieCheSegui", Context.MODE_PRIVATE);

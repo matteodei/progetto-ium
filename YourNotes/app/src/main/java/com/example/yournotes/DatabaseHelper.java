@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "CorsiDB6";
     private static final int DATABASE_VERSION = 3;
@@ -63,38 +65,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
     @SuppressLint("Range")
     public void updateFollowState(String username, int idCorsoPreferito) {
-        /*
-        SQLiteDatabase db = this.getWritableDatabase();
 
-        String selection = "NomeUtente=?";
-        String[] selectionArgs = {username};
-
-        Cursor cursor = db.query(
-                CoursesContract.TABLE_NAME_PREFE,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-        );
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") String currentValue = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_MATERIA_PREFE));
-                Log.d("currentValue", currentValue);
-
-                if (currentValue.equals(corsoPreferito)) {
-
-                }else {
-
-                }
-
-            } while (cursor.moveToNext());
-            cursor.close();
-        }else {
-            aggiungiPreferiti(username, corsoPreferito);
-        }*/
         SQLiteDatabase db = this.getWritableDatabase();
 
         Log.d("DATI che mi arrivano dal bottone premuto",username + ' ' + idCorsoPreferito);
@@ -140,6 +111,39 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         db.close();
+    }
+    @SuppressLint("Range")
+    public ArrayList<String> getPrefForUser(String username){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> corsiPreferiti = new ArrayList<>();
+
+        Cursor cursor = db.query(
+                CoursesContract.TABLE_NAME_PREFE,
+                null,
+                "NomeUtente=?",
+                new String[] {username},
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+
+                String currentValueName = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME_PREFE));
+                String currentValue = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_MATERIA_PREFE));
+                Log.d("DATI DATABASE", currentValueName + ' ' + currentValue);
+                corsiPreferiti.add(currentValue);
+
+            } while (cursor.moveToNext());
+            cursor.close();
+
+        }
+
+
+
+        return corsiPreferiti;
     }
 
 }
