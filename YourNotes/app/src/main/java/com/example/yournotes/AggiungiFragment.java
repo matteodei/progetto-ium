@@ -35,21 +35,6 @@ public class AggiungiFragment extends Fragment {
             "Fisica", "Filologia Classica", "Filosofia", "Geografia Economica", "Geometria",
             "Ingegneria del Software", "Lingua Inglese", "Letteratura Italiana", "Microeconomia",
             "Programmazione 1", "Programmazione 2", "Psicologia", "Scienze Politiche", "Storia dell'Arte",
-            "Storia Medievale", "Teoria dei Sistemi", "Statistica", "Programmazione 2", "Analisi Matematica",
-            "Filosofia", "Geometria", "Fisica", "Chimica", "Storia dell'Arte", "Letteratura Italiana",
-            "Economia", "Ingegneria del Software", "Algoritmi e Strutture Dati", "Fisiologia Umana",
-            "Lingua Inglese", "Storia Medievale", "Diritto Civile", "Architettura dei Calcolatori",
-            "Biologia Molecolare", "Scienze Politiche", "Statistica", "Psicologia", "Geografia Economica",
-            "Chimica Organica", "Filologia Classica", "Antropologia Culturale", "Elettronica",
-            "Teoria dei Sistemi", "Microeconomia", "Diritto del Lavoro"
-    };
-
-    String[] arrayMaterieSenzaDuplicati = new String[]{
-            "Analisi Matematica", "Architettura dei Calcolatori", "Biologia Molecolare", "Chimica",
-            "Chimica Organica", "Diritto Civile", "Diritto del Lavoro", "Economia", "Elettronica",
-            "Fisica", "Filologia Classica", "Filosofia", "Geografia Economica", "Geometria",
-            "Ingegneria del Software", "Lingua Inglese", "Letteratura Italiana", "Microeconomia",
-            "Programmazione 1", "Programmazione 2", "Psicologia", "Scienze Politiche", "Storia dell'Arte",
             "Storia Medievale", "Teoria dei Sistemi", "Statistica", "Algoritmi e Strutture Dati", "Fisiologia Umana",
             "Antropologia Culturale"
     };
@@ -76,7 +61,7 @@ public class AggiungiFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_aggiungi, container, false);
 
         autoCompleteTextView = rootView.findViewById(R.id.autoCompleteTextView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, arrayMaterieSenzaDuplicati);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(requireContext(), android.R.layout.simple_dropdown_item_1line, arrayMaterie);
         autoCompleteTextView.setAdapter(adapter);
 
         spinnerAnno = rootView.findViewById(R.id.spinnerAnno);

@@ -2,6 +2,7 @@ package com.example.yournotes;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,7 +12,6 @@ import android.os.Bundle;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 import android.text.Spannable;
-import android.text.TextUtils;
 import android.text.style.StyleSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,7 +23,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.text.SpannableString;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HomeFragment extends Fragment {
     DatabaseHelper dbHelper;
@@ -70,6 +69,8 @@ public class HomeFragment extends Fragment {
             searchView.clearFocus();
             seguitiButton.setBackgroundColor(Color.rgb(50,50,50));
             perTeButton.setBackgroundColor(Color.rgb(200,200,200));
+            searchView.setQuery("", false);
+            searchView.clearFocus();
             flagMaterieSeguite=1;
             cambioPaginaNome(username);
         });
@@ -79,6 +80,8 @@ public class HomeFragment extends Fragment {
             searchView.clearFocus();
             perTeButton.setBackgroundColor(Color.rgb(50,50,50));
             seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
+            searchView.setQuery("", false);
+            searchView.clearFocus();
             flagMaterieSeguite=0;
             cambioPaginaNome(username);
         });
@@ -145,6 +148,7 @@ public class HomeFragment extends Fragment {
                 @SuppressLint("InflateParams") View itemView = LayoutInflater.from(getContext()).inflate(R.layout.items_layout, null);
 
                 AppCompatButton followButton = itemView.findViewById(R.id.seguiButton);
+                AppCompatButton viewPdfButton = itemView.findViewById(R.id.visualizzaPdfTextView);
                 TextView textViewNome = itemView.findViewById(R.id.nomeTextView);
                 TextView textViewCorso = itemView.findViewById(R.id.corsoLaureaTextView);
                 TextView textViewAnno = itemView.findViewById(R.id.annoTextView);
@@ -155,8 +159,6 @@ public class HomeFragment extends Fragment {
                 final int idIndex = cursor.getColumnIndex("_id");
                 final int itemID = cursor.getInt(idIndex);
                 ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
-                Log.d("Materia preferite", TextUtils.join(", ", idCorsiSeguiti));
-                Log.d("Materia attuale", String.valueOf(itemID));
 
                 if( idCorsiSeguiti.contains(String.valueOf(itemID)))
                     followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
@@ -180,6 +182,11 @@ public class HomeFragment extends Fragment {
                     //update UI
                     containerLayout.removeAllViews();
                     cambioPaginaNome(username);
+                });
+
+                viewPdfButton.setOnClickListener(v -> {
+                    Intent intent = new Intent(getContext(),PDFViewActivity.class);
+                    startActivity(intent);
                 });
 
                 String label_nome = labelNome + nome;
@@ -236,7 +243,6 @@ public class HomeFragment extends Fragment {
 
         if (flagMaterieSeguite == 0){
             selection.append("nome LIKE ?");
-            materiePrefeSplit = null;
 
             cursor = db.query(
                     CoursesContract.TABLE_NAME,
@@ -251,13 +257,14 @@ public class HomeFragment extends Fragment {
         else if (flagMaterieSeguite == 1) {
 
             selection = new StringBuilder();
+            selection.append("( ");
             for (int i = 0; i < materiePrefeSplit.length; i++) {
                 if (i > 0) {
                     selection.append(" OR ");
                 }
                 selection.append("nome=?");
             }
-            selection.append("AND nome LIKE ?");
+            selection.append(" ) AND nome LIKE ?");
 
             String[] selectionArgs = new String[materiePrefeSplit.length + 1];
 
@@ -291,8 +298,7 @@ public class HomeFragment extends Fragment {
                 final int idIndex = cursor.getColumnIndex("_id");
                 final int itemID = cursor.getInt(idIndex);
                 ArrayList<String> idCorsiSeguiti = dbHelper.getPrefForUser(username);
-                Log.d("Materia preferite", TextUtils.join(", ", idCorsiSeguiti));
-                Log.d("Materia attuale", String.valueOf(itemID));
+
 
                 if( idCorsiSeguiti.contains(String.valueOf(itemID)))
                     followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
