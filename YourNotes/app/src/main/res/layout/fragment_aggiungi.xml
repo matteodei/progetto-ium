@@ -23,32 +23,6 @@
             android:textColor="#FFFEFE"
             android:textSize="40sp" />
 
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="85dp"
-            android:hint="Nome Materia"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
-            app:startIconDrawable="@drawable/ic_cdl"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            app:endIconMode="clear_text"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
-            app:errorEnabled="true"
-            app:helperTextEnabled="true"
-            android:id="@+id/editTextNameLayout">
-
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:id="@+id/editTextName"
-                />
-        </com.google.android.material.textfield.TextInputLayout>-->
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="match_parent"
@@ -61,26 +35,27 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             app:endIconMode="clear_text"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
             app:errorEnabled="true"
             app:helperTextEnabled="true"
-            android:id="@+id/editTextNameLayout">
+            android:id="@+id/editTextNameLayout"
+            >
 
             <AutoCompleteTextView
                 android:id="@+id/autoCompleteTextView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:inputType="textAutoComplete"
-                android:imeOptions="actionDone" />
+                android:imeOptions="actionDone"
+                android:textSize="16dp"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="175dp"
             android:hint="Corso di laurea"
             app:boxStrokeColor="@color/black"
             app:hintTextColor="@color/black"
@@ -90,79 +65,65 @@
             app:endIconMode="clear_text"
             app:counterEnabled="true"
             app:counterMaxLength="20"
-            android:id="@+id/editTextCdLLayout">
+            android:id="@+id/editTextCdLLayout"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/editTextCdL"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--<com.google.android.material.textfield.TextInputLayout
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="255dp"
-            android:hint="Anno"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:id="@+id/editTextYearLayout"
-            app:startIconDrawable="@drawable/ic_data">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:id="@+id/editTextYear"
-                />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="255dp"
-            android:hint="Semestre"
-            app:boxStrokeColor="@color/black"
-            app:hintTextColor="@color/black"
-            android:layout_marginStart="200dp"
-            android:layout_marginEnd="32dp"
-            android:id="@+id/editTextSemesterLayout"
-            app:startIconDrawable="@drawable/ic_data">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:id="@+id/editTextSemester"
-                />
-        </com.google.android.material.textfield.TextInputLayout>-->
-
         <Spinner
             android:id="@+id/spinnerAnno"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="255dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="270dp"
             android:layout_marginStart="32dp"
-            android:layout_marginEnd="31dp"/>
+            android:layout_marginEnd="220dp"
+            android:background="@drawable/custom_spinner_background"
+            />
+
+        <TextView
+            android:id="@+id/helperTextAnno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="315dp"
+            android:textSize="12dp"
+        />
 
         <!-- Spinner per il semestre -->
         <Spinner
             android:id="@+id/spinnerSemestre"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="255dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="270dp"
             android:layout_marginStart="201dp"
-            android:layout_marginEnd="32dp"/>
+            android:layout_marginEnd="32dp"
+            android:background="@drawable/custom_spinner_background"/>
+
+        <TextView
+            android:id="@+id/helperTextSemestre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:visibility="gone"
+            android:textColor="@android:color/holo_red_dark"
+            android:layout_marginStart="209dp"
+            android:layout_marginTop="315dp"
+            android:textSize="12dp"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:theme="@style/ThemeOverlay.AppTheme.TextInputEditText.Outlined"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="160dp"
             android:layout_marginTop="340dp"
             android:hint="Argomenti del corso"
             app:boxStrokeColor="@color/black"
@@ -171,7 +132,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             app:endIconMode="clear_text"
-            android:id="@+id/editTextCourseTopicsLayout">
+            android:id="@+id/editTextCourseTopicsLayout"
+            app:helperTextEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -187,7 +149,7 @@
             android:layout_height="48dp"
             android:text="Conferma"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="600dp"
+            android:layout_marginTop="610dp"
             android:background="@drawable/mygradient"
             android:textColor="@color/white"
             android:onClick="onConfermaClick"
@@ -199,7 +161,7 @@
             android:layout_height="58dp"
             android:text="Carica PDF"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="510dp"
+            android:layout_marginTop="520dp"
             android:background="@drawable/mygradient"
             android:textColor="@color/white"
             android:onClick="onConfermaClick"

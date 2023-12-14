@@ -19,7 +19,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -51,8 +54,8 @@ public class AggiungiFragment extends Fragment {
             "Antropologia Culturale"
     };
 
-    String[] arrayAnni = new String[]{"1", "2", "3"};
-    String[] arraySemestri = new String[]{"1", "2"};
+    String[] arrayAnni = new String[]{"Sel. Anno", "1", "2", "3"};
+    String[] arraySemestri = new String[]{"Sel. Semestre", "1", "2"};
 
     private DatabaseHelper dbHelper;
     AutoCompleteTextView autoCompleteTextView;
@@ -127,7 +130,59 @@ public class AggiungiFragment extends Fragment {
         String argomenti = editTextCourseTopics.getText().toString();
         String username = getArguments().getString("username");
 
-        if (!nome.isEmpty() && !corsoDiLaurea.isEmpty() && !argomenti.isEmpty()) {
+        TextInputLayout materiaLayout = requireView().findViewById(R.id.editTextNameLayout);
+        TextInputLayout cdlLayout = requireView().findViewById(R.id.editTextCdLLayout);
+        TextInputLayout topicsLayout = requireView().findViewById(R.id.editTextCourseTopicsLayout);
+
+        TextView helperTextAnno = requireView().findViewById(R.id.helperTextAnno);
+        TextView helperTextSemestre = requireView().findViewById(R.id.helperTextSemestre);
+
+        int controlloErrori = 0;
+
+        if (nome.isEmpty()) {
+            materiaLayout.setError("*Campo necessario");
+        }else{
+            for(int i = 0; i<arrayMaterieSenzaDuplicati.length; i++){
+                if((nome.equals(arrayMaterieSenzaDuplicati[i])) && (controlloErrori == 0)){
+                    controlloErrori++;
+                }
+            }
+            if(controlloErrori == 0){
+                materiaLayout.setError("*La materia deve essere una di quelle seguibili");
+            }
+        }
+
+        if (corsoDiLaurea.isEmpty()) {
+            cdlLayout.setError("*Campo necessario");
+        }else if(corsoDiLaurea.length() > 20){
+            cdlLayout.setError("*Nome troppo lungo");
+        }else{
+            controlloErrori++;
+        }
+
+        if (argomenti.isEmpty()) {
+            topicsLayout.setError("*Campo necessario");
+        }else{
+            controlloErrori++;
+        }
+
+        if(!(anno.equals("Sel. Anno"))){
+            controlloErrori++;
+        }else{
+            spinnerAnno.setBackgroundResource(R.drawable.custom_spinner_error);
+            helperTextAnno.setVisibility(View.VISIBLE);
+            helperTextAnno.setText("*Selezionare");
+        }
+
+        if(!(semestre.equals("Sel. Semestre"))){
+            controlloErrori++;
+        }else{
+            spinnerSemestre.setBackgroundResource(R.drawable.custom_spinner_error);
+            helperTextSemestre.setVisibility(View.VISIBLE);
+            helperTextSemestre.setText("*Selezionare");
+        }
+
+        if (controlloErrori == 5) {
 
             ContentValues values = new ContentValues();
             values.put(CoursesContract.COLUMN_NAME, nome);

@@ -66,6 +66,8 @@ public class HomeFragment extends Fragment {
 
         //aka tuttoButton
         seguitiButton.setOnClickListener(v -> {
+            searchView.setQuery("", false);
+            searchView.clearFocus();
             seguitiButton.setBackgroundColor(Color.rgb(50,50,50));
             perTeButton.setBackgroundColor(Color.rgb(200,200,200));
             flagMaterieSeguite=1;
@@ -73,6 +75,8 @@ public class HomeFragment extends Fragment {
         });
 
         perTeButton.setOnClickListener(v -> {
+            searchView.setQuery("", false);
+            searchView.clearFocus();
             perTeButton.setBackgroundColor(Color.rgb(50,50,50));
             seguitiButton.setBackgroundColor(Color.rgb(200,200,200));
             flagMaterieSeguite=0;
@@ -157,7 +161,7 @@ public class HomeFragment extends Fragment {
                 if( idCorsiSeguiti.contains(String.valueOf(itemID)))
                     followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
                 else
-                    followButton.setBackgroundResource(R.drawable.ic_preferiti);
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti_vuoto);
 
                 String labelNome = "Materia: ";
                 String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
@@ -293,7 +297,7 @@ public class HomeFragment extends Fragment {
                 if( idCorsiSeguiti.contains(String.valueOf(itemID)))
                     followButton.setBackgroundResource(R.drawable.ic_preferiti_rosso);
                 else
-                    followButton.setBackgroundResource(R.drawable.ic_preferiti);
+                    followButton.setBackgroundResource(R.drawable.ic_preferiti_vuoto);
 
                 String labelNome = "Materia: ";
                 String nome = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_NAME));
