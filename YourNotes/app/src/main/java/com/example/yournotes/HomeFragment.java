@@ -176,6 +176,7 @@ public class HomeFragment extends Fragment {
                 String labelArgomenti = "";
                 String argomenti = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_TOPICS));
                 String user = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_USER));
+                String nameFilePDF = cursor.getString(cursor.getColumnIndex(CoursesContract.COLUMN_FILE_PDF));
 
                 followButton.setOnClickListener(v -> {
                     dbHelper.updateFollowState(username, itemID);
@@ -186,6 +187,7 @@ public class HomeFragment extends Fragment {
 
                 viewPdfButton.setOnClickListener(v -> {
                     Intent intent = new Intent(getContext(),PDFViewActivity.class);
+                    intent.putExtra("nameFilePDF", nameFilePDF);
                     startActivity(intent);
                 });
 

@@ -11,7 +11,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "CorsiDB6";
+    private static final String DATABASE_NAME = "CorsiDB7";
     private static final int DATABASE_VERSION = 3;
 
     public DatabaseHelper(Context context) {
@@ -29,7 +29,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "semestre TEXT, " +
                 "argomenti TEXT," +
                 "seguita TEXT,"+
-                "user TEXT)";
+                "user TEXT,"+
+                "filePDF TEXT)";
         db.execSQL(createTableQuery);
 
         String createPreferredCourseTable = "CREATE TABLE CorsiPreferiti (" +

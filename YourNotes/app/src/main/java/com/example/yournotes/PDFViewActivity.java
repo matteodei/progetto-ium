@@ -17,6 +17,8 @@ public class PDFViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdfview);
 
+        String nameFilePDF = getIntent().getStringExtra("nameFilePDF");
+
         Button button = findViewById(R.id.backButton2);
         PDFView pdfView = findViewById(R.id.pdfView);
 
@@ -25,6 +27,6 @@ public class PDFViewActivity extends AppCompatActivity {
             finish();
         });
 
-        pdfView.fromAsset("filePDF.pdf").load();
+        pdfView.fromAsset(nameFilePDF).load();
     }
 }

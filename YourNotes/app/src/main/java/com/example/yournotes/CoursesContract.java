@@ -10,7 +10,7 @@ public class CoursesContract {
     public static final String COLUMN_TOPICS = "argomenti";
     public static final String COLUMN_FOLLOW = "seguita";
     public static final String COLUMN_USER = "user";
-
+    public static final String COLUMN_FILE_PDF = "filePDF";
     public static final String TABLE_NAME_PREFE = "CorsiPreferiti";
     public static final String COLUMN_NAME_PREFE = "NomeUtente";
     public static final String COLUMN_MATERIA_PREFE = "MateriaPreferita";

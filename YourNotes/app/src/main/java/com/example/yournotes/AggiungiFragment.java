@@ -4,11 +4,13 @@ import static android.app.Activity.RESULT_OK;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.provider.OpenableColumns;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,11 +29,13 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AggiungiFragment extends Fragment {
 
     private static final int PICK_PDF_FILE = 1;
+    public String nameFilePDF = null;
     String[] arrayMaterie = new String[]{
             "Analisi Matematica", "Architettura dei Calcolatori", "Biologia Molecolare", "Chimica",
             "Chimica Organica", "Diritto Civile", "Diritto del Lavoro", "Economia", "Elettronica",
@@ -241,7 +245,11 @@ public class AggiungiFragment extends Fragment {
             helperTextSemestre.setText("*Selezionare");
         }
 
-        if (controlloErrori == 5) {
+        if (!(nameFilePDF == null))
+            controlloErrori++;
+
+
+        if (controlloErrori == 6) {
 
             ContentValues values = new ContentValues();
             values.put(CoursesContract.COLUMN_NAME, nome);
@@ -251,6 +259,7 @@ public class AggiungiFragment extends Fragment {
             values.put(CoursesContract.COLUMN_TOPICS, argomenti);
             values.put(CoursesContract.COLUMN_FOLLOW, "0");
             values.put(CoursesContract.COLUMN_USER, username);
+            values.put(CoursesContract.COLUMN_FILE_PDF, nameFilePDF);
 
             SQLiteDatabase db = dbHelper.getWritableDatabase();
             db.insert(CoursesContract.TABLE_NAME, null, values);
@@ -282,9 +291,28 @@ public class AggiungiFragment extends Fragment {
 
         if (requestCode == PICK_PDF_FILE && resultCode == RESULT_OK && data != null) {
             Uri uri = data.getData();
-            // Ora hai l'URI del file PDF selezionato, puoi fare ciò che desideri con esso
+            nameFilePDF = getFileNameFromUri(uri);
+
             Log.d("--URI--", String.valueOf(uri));
+            Log.d("--NAME FILE--", nameFilePDF);
         }
+    }
+
+    private String getFileNameFromUri(Uri uri) {
+        String fileName = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int nameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                if (nameIndex != -1) {
+                    fileName = cursor.getString(nameIndex);
+                }
+                cursor.close();
+            }
+        } else if (uri.getScheme().equals("file")) {
+            fileName = new File(uri.getPath()).getName();
+        }
+        return fileName;
     }
 
 }
