@@ -43,7 +43,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/registerUsername"
                 />
@@ -67,7 +67,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/registerEmail"
                 />
@@ -91,7 +91,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/registerPassword"
                 android:inputType="textPassword"
@@ -116,7 +116,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/registerConfirmPassword"
                 android:inputType="textPassword"
@@ -141,7 +141,7 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="55dp"
                 android:textColor="@color/black"
                 android:id="@+id/registerCorsoDiLaurea"
                 />

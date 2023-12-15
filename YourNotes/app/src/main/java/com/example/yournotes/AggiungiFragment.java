@@ -9,11 +9,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.LogPrinter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -74,11 +77,23 @@ public class AggiungiFragment extends Fragment {
         adapterSemestre.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSemestre.setAdapter(adapterSemestre);
 
+        TextInputLayout editTextNameLayout = rootView.findViewById(R.id.editTextNameLayout);
+        TextInputLayout editTextCdLLayout = rootView.findViewById(R.id.editTextCdLLayout);
+        TextInputLayout editTextCourseTopicsLayout = rootView.findViewById(R.id.editTextCourseTopicsLayout);
+        EditText editTextCdL = rootView.findViewById(R.id.editTextCdL);
+        EditText editTextCourseTopics = rootView.findViewById(R.id.editTextCourseTopics);
+        TextView helperTextAnno = rootView.findViewById(R.id.helperTextAnno);
+        TextView helperTextSemestre = rootView.findViewById(R.id.helperTextSemestre);
 
         dbHelper = new DatabaseHelper(requireContext());
 
         Button buttonConferma = rootView.findViewById(R.id.buttonConferma);
-        buttonConferma.setOnClickListener(v -> confermaInserimento());
+        buttonConferma.setOnClickListener(v -> {
+            autoCompleteTextView.clearFocus();
+            editTextCdL.clearFocus();
+            editTextCourseTopics.clearFocus();
+            confermaInserimento();
+        });
 
         //Button buttonElimina = rootView.findViewById(R.id.buttonElimina);
         //buttonElimina.setOnClickListener(v -> eliminaDatabase());
@@ -94,6 +109,65 @@ public class AggiungiFragment extends Fragment {
                 startActivityForResult(Intent.createChooser(intent, "Seleziona un file PDF"), PICK_PDF_FILE);
             } catch (android.content.ActivityNotFoundException ex) {
                 // Gestisci l'eccezione, se necessario
+            }
+        });
+
+        autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                editTextNameLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editTextCdL.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                editTextCdLLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        editTextCourseTopics.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                editTextCourseTopicsLayout.setError(null);
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        });
+
+        spinnerAnno.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Azioni da eseguire quando un elemento è selezionato
+                spinnerAnno.setBackgroundResource(R.drawable.custom_spinner_background);
+                helperTextAnno.setVisibility(View.GONE);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Azioni da eseguire quando nessun elemento è selezionato
+            }
+        });
+
+        spinnerSemestre.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                // Azioni da eseguire quando un elemento è selezionato
+                spinnerSemestre.setBackgroundResource(R.drawable.custom_spinner_background);
+                helperTextSemestre.setVisibility(View.GONE);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Azioni da eseguire quando nessun elemento è selezionato
             }
         });
 
@@ -125,15 +199,15 @@ public class AggiungiFragment extends Fragment {
         int controlloErrori = 0;
 
         if (nome.isEmpty()) {
-            materiaLayout.setError("*Campo necessario");
+            materiaLayout.setError("    *Campo necessario");
         }else{
-            for(int i = 0; i<arrayMaterieSenzaDuplicati.length; i++){
-                if((nome.equals(arrayMaterieSenzaDuplicati[i])) && (controlloErrori == 0)){
+            for(int i = 0; i<arrayMaterie.length; i++){
+                if((nome.equals(arrayMaterie[i])) && (controlloErrori == 0)){
                     controlloErrori++;
                 }
             }
             if(controlloErrori == 0){
-                materiaLayout.setError("*La materia deve essere una di quelle seguibili");
+                materiaLayout.setError("    *La materia deve essere una di quelle seguibili");
             }
         }
 
@@ -189,8 +263,6 @@ public class AggiungiFragment extends Fragment {
 
             Toast.makeText(requireContext(), "Corso inserito con successo", Toast.LENGTH_SHORT).show();
 
-        } else {
-            Toast.makeText(requireContext(), "Riempi tutti i campi", Toast.LENGTH_SHORT).show();
         }
     }
 
